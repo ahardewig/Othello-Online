@@ -132,13 +132,14 @@ class Disc extends Component {
             } else {
                 newState.colorsTurn = "white"
             }
+            if(newState.game.piecesRemaining === 0){
+                this.props.declareWinner();
+            }
             this.props.setGameBoardState(newState)
         } else { //Not a valid move
             return
             //Add error or something?
         }
-        
-        //if(validMove)
     }
 
     render = () => {
