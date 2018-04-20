@@ -28,6 +28,8 @@ class Disc extends Component {
             //Add error or something?
         }
         
+        //if(validMove)
+        this.props.changeDiscColor(this.props.row, this.props.col, "black")
     }
 
     render = () => {
