@@ -21,21 +21,22 @@ class Disc extends Component {
     }
 
     onClick = (event) => {
-        if(validMove){
-            this.props.changeDiscColor(this.props.row, this.props.col, "black")
+        if(this.validMove()){
+            //this.props.changeDiscColor(this.props.row, this.props.col, "black")
         } else { //Not a valid move
             return
             //Add error or something?
         }
         
         //if(validMove)
-        this.props.changeDiscColor(this.props.row, this.props.col, "black")
+        this.props.changeDiscColor(this.props.row, this.props.col, "white")
     }
 
     render = () => {
         return (
             // <p>row={this.props.row}, col={this.props.col}</p>
-            <div id="circle" style={this.style()} onClick={this.onClick}></div>
+            // <div id="circle" style={this.style()} onClick={this.onClick}></div>
+            <button id="circle" style={this.style()} onClick={this.onClick}></button>
         )
     }
 }

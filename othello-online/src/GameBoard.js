@@ -65,13 +65,15 @@ class GameBoard extends Component {
         let rows = [];
         if(this.state.boardSynced){
             for(var i = 0; i < 8; i++){
-                rows.push(<div>{this.renderRow(i)}<br></br></div>)
+                rows.push(<div display="flex">{this.renderRow(i)}</div>)
             }
 
             return (
                 <div>
                     <p> ahoy it's synced: {this.state.board.testvalue}</p>
+                    <div>
                     {rows}
+                    </div>
                 </div>
             )
         } else {
