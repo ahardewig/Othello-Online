@@ -6,16 +6,16 @@ class GameBoard extends Component {
     constructor(){
         super();
         this.state = {
-            board: { },
+            game: { },
             boardSynced: false,
         }
     }
     componentWillMount = () => {
         //rebase.syncState(`games/${this.props.gameID}/board`, {
         // this.testFunc()
-        rebase.syncState(`games/testingID/board`, { //TODO: change testingID to be a prop
+        rebase.syncState(`games/testingID`, { //TODO: change testingID to be a prop
             context: this,
-            state: 'board',
+            state: 'game',
             then(data){
                 let newState = { ...this.state }
                 newState.boardSynced = true
@@ -38,25 +38,25 @@ class GameBoard extends Component {
     //         }
     //     })
     // }
-    getBoardState = () => {
+    getGameState = () => {
         return this.state
     }
 
-    setBoardState = (newState) => {
+    setGameState = (newState) => {
         this.setState(newState)
     }
 
     changeDiscColor = (row, col, color) => {
         let newState = { ...this.state }
-        newState.board[row][col] = color
+        newState.game.board[row][col] = color
         this.setState(newState)
     }
 
     renderRow = (rowNum) => {
         let row = []
         for(var i = 0; i < 8; i++){
-            row.push(<Disc row={rowNum} col={i} color={this.state.board[rowNum][i]} changeDiscColor={this.changeDiscColor}
-                        getBoardState={this.getBoardState} setBoardState={this.setBoardState}/>) //TODO: make color change dynamically
+            row.push(<Disc row={rowNum} col={i} color={this.state.game.board[rowNum][i]} changeDiscColor={this.changeDiscColor}
+                        getGameState={this.getGameState} setGameState={this.setGameState}/>) //TODO: make color change dynamically
         }
         return row
     }
@@ -70,7 +70,7 @@ class GameBoard extends Component {
 
             return (
                 <div>
-                    <p> ahoy it's synced: {this.state.board.testvalue}</p>
+                    <p> ahoy it's synced: {this.state.game.board.testvalue}</p>
                     <div>
                     {rows}
                     </div>
