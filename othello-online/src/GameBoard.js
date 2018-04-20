@@ -71,20 +71,45 @@ class GameBoard extends Component {
         let rows = [];
         if(this.state.boardSynced){
             for(var i = 0; i < 8; i++){
-                rows.push(<div display="flex">{this.renderRow(i)}</div>)
+                rows.push(<div>{this.renderRow(i)}</div>)
             }
+            
 
             return (
-                <div>
-                    <p> ahoy it's synced: {this.state.game.board.testvalue}</p>
+                <div >
+
                     <div>
-                    {rows}
+                    <p style=
+                        {{backgroundColor: '#000030',
+                            color: 'white',
+                            fontSize: '30px',
+                            padding: "20px 20px",
+                            margin: "1px 1px",
+                         }}
+                        >Othello {this.state.game.board.testvalue}
+                    </p>
                     </div>
+
+                    <div>
+                        <div style={{
+                            marginTop: '5px',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            flexWrap: 'wrap',
+                            width: '425px',
+                            borderStyle: "outset",
+                            borderWidth: '5px',
+                            backgroundColor: '#d9d9d9',
+                         }}>
+                        {rows}
+                        </div>
+                    </div>
+
                 </div>
             )
         } else {
             return (
-                <p> ahoy it's not synced</p>
+                <p> ahoy its not synced</p>
             )
         }
 
