@@ -21,10 +21,27 @@ class GameBoard extends Component {
             }
         })
     }
+
+    renderRow = (rowNum) => {
+        let row = []
+        for(var i = 0; i < 8; i++){
+            row.push(<p>testing {i}</p>)
+        }
+        return row
+    }
+
     render = () => {
+        let rows = [];
         if(this.state.boardSynced){
+            for(var i = 0; i < 8; i++){
+                rows.push(<div>{this.renderRow(i)}<br></br></div>)
+            }
+
             return (
-                <p> ahoy it's synced: {this.state.board.testvalue}</p>
+                <div>
+                    <p> ahoy it's synced: {this.state.board.testvalue}</p>
+                    {rows}
+                </div>
             )
         } else {
             return (
