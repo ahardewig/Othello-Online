@@ -8,6 +8,7 @@ class GameBoard extends Component {
         this.state = {
             game: { },
             boardSynced: false,
+            playerColor: "",
         }
     }
     componentWillMount = () => {
@@ -19,6 +20,11 @@ class GameBoard extends Component {
             then(data){
                 let newState = { ...this.state }
                 newState.boardSynced = true
+                if(this.props.playerID === newState.game.blackPlayer){
+                    newState.playerColor = "black"
+                } else {
+                    newState.playerColor = "white"
+                }
                 this.setState(newState)
             }
         })
@@ -38,11 +44,11 @@ class GameBoard extends Component {
     //         }
     //     })
     // }
-    getGameState = () => {
+    getGameBoardState = () => {
         return this.state
     }
 
-    setGameState = (newState) => {
+    setGameBoardState = (newState) => {
         this.setState(newState)
     }
 
@@ -56,7 +62,7 @@ class GameBoard extends Component {
         let row = []
         for(var i = 0; i < 8; i++){
             row.push(<Disc row={rowNum} col={i} color={this.state.game.board[rowNum][i]} changeDiscColor={this.changeDiscColor}
-                        getGameState={this.getGameState} setGameState={this.setGameState}/>) //TODO: make color change dynamically
+                        getGameBoardState={this.getGameBoardState} setGameBoardState={this.setGameBoardState} playerColor={this.state.playerColor}/>) //TODO: make color change dynamically
         }
         return row
     }

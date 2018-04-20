@@ -62,7 +62,7 @@ class App extends Component {
       <Switch>
         <Route path="/" render={() => {
           if (!isObjectEmpty(this.state.user) ){
-            return <GameBoard />
+            return <GameBoard playerID="abcd"/>
           }
           else {
             return <Login />
