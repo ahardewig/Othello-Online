@@ -6,19 +6,25 @@ class GameBoard extends Component {
     constructor(){
         super();
         this.state = {
-            board: { },
+            game: { },
             boardSynced: false,
+            playerColor: "",
         }
     }
     componentWillMount = () => {
         //rebase.syncState(`games/${this.props.gameID}/board`, {
         // this.testFunc()
-        rebase.syncState(`games/testingID/board`, { //TODO: change testingID to be a prop
+        rebase.syncState(`games/testingID`, { //TODO: change testingID to be a prop
             context: this,
-            state: 'board',
+            state: 'game',
             then(data){
                 let newState = { ...this.state }
                 newState.boardSynced = true
+                if(this.props.playerID === newState.game.blackPlayer){
+                    newState.playerColor = "black"
+                } else {
+                    newState.playerColor = "white"
+                }
                 this.setState(newState)
             }
         })
@@ -38,25 +44,25 @@ class GameBoard extends Component {
     //         }
     //     })
     // }
-    getBoardState = () => {
+    getGameBoardState = () => {
         return this.state
     }
 
-    setBoardState = (newState) => {
+    setGameBoardState = (newState) => {
         this.setState(newState)
     }
 
     changeDiscColor = (row, col, color) => {
         let newState = { ...this.state }
-        newState.board[row][col] = color
+        newState.game.board[row][col] = color
         this.setState(newState)
     }
 
     renderRow = (rowNum) => {
         let row = []
         for(var i = 0; i < 8; i++){
-            row.push(<Disc row={rowNum} col={i} color={this.state.board[rowNum][i]} changeDiscColor={this.changeDiscColor}
-                        getBoardState={this.getBoardState} setBoardState={this.setBoardState}/>) //TODO: make color change dynamically
+            row.push(<Disc row={rowNum} col={i} color={this.state.game.board[rowNum][i]} changeDiscColor={this.changeDiscColor}
+                        getGameBoardState={this.getGameBoardState} setGameBoardState={this.setGameBoardState} playerColor={this.state.playerColor}/>) //TODO: make color change dynamically
         }
         return row
     }
@@ -65,13 +71,15 @@ class GameBoard extends Component {
         let rows = [];
         if(this.state.boardSynced){
             for(var i = 0; i < 8; i++){
-                rows.push(<div>{this.renderRow(i)}<br></br></div>)
+                rows.push(<div display="flex">{this.renderRow(i)}</div>)
             }
 
             return (
                 <div>
-                    <p> ahoy it's synced: {this.state.board.testvalue}</p>
+                    <p> ahoy it's synced: {this.state.game.board.testvalue}</p>
+                    <div>
                     {rows}
+                    </div>
                 </div>
             )
         } else {
