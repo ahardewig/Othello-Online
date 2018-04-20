@@ -127,6 +127,11 @@ class Disc extends Component {
             this.props.changeDiscColor(this.props.row, this.props.col, this.props.playerColor)
             let newState = this.props.getGameBoardState();
             newState.game.piecesRemaining -= 1
+            if(this.props.playerColor === "white"){
+                newState.colorsTurn = "black"
+            } else {
+                newState.colorsTurn = "white"
+            }
             this.props.setGameBoardState(newState)
         } else { //Not a valid move
             return
