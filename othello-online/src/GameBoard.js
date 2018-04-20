@@ -14,7 +14,7 @@ class GameBoard extends Component {
     componentWillMount = () => {
         //rebase.syncState(`games/${this.props.gameID}/board`, {
         // this.testFunc()
-        rebase.syncState(`games/testingID`, { //TODO: change testingID to be a prop
+        rebase.syncState(`games/${this.props.gameID}`, { //TODO: change testingID to be a prop
             context: this,
             state: 'game',
             then(data){
