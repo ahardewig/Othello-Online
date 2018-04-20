@@ -9,10 +9,14 @@ class Disc extends Component {
         })
     }
 
+    onClick = (event) => {
+        this.props.changeDiscColor(this.props.row, this.props.col, "black")
+    }
+
     render = () => {
         return (
             // <p>row={this.props.row}, col={this.props.col}</p>
-            <div id="circle" style={this.style()}></div>
+            <div id="circle" style={this.style()} onClick={this.onClick}></div>
         )
     }
 }
