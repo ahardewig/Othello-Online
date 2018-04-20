@@ -12,8 +12,8 @@ class GameBoard extends Component {
     }
     componentWillMount = () => {
         //rebase.syncState(`games/${this.props.gameID}/board`, {
-        //this.testFunc()
-        rebase.syncState(`games/testingID/board`, {
+        // this.testFunc()
+        rebase.syncState(`games/testingID/board`, { //TODO: change testingID to be a prop
             context: this,
             state: 'board',
             then(data){
@@ -27,14 +27,14 @@ class GameBoard extends Component {
     // testFunc = () => { //add dummy data for testing
     //     rebase.post(`games/testingID/board`, {
     //         data: {
-    //             0: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
-    //             1: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
-    //             2: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
-    //             3: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
-    //             4: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
-    //             5: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
-    //             6: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
-    //             7: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             0: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "black",},
+    //             1: {0: "white",1: "black",2: "white",3: "black",4: "black",5: "white",6: "white",7: "black",},
+    //             2: {0: "black",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "black",},
+    //             3: {0: "white",1: "white",2: "black",3: "white",4: "white",5: "white",6: "white",7: "black",},
+    //             4: {0: "white",1: "black",2: "black",3: "black",4: "white",5: "black",6: "white",7: "black",},
+    //             5: {0: "white",1: "black",2: "black",3: "black",4: "white",5: "white",6: "white",7: "white",},
+    //             6: {0: "white",1: "white",2: "white",3: "black",4: "white",5: "white",6: "white",7: "white",},
+    //             7: {0: "white",1: "black",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
     //         }
     //     })
     // }
