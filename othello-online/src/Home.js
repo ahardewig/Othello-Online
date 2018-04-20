@@ -38,17 +38,53 @@ class Home extends Component {
 
     }
 
+    addUsertoQueue = () => {
+        rebase.push(`queue`, {
+            data: {username: this.props.username, uid: this.props.playerID},
+          });
+    }
+
     searchForGame = () => {
-        //set searchingForGame to true and rerender to a dif loading screen
-        //popup the loading symbol
-        
+        //set searchingForGame to true to popup the loading symbol
             this.setState({searchingForGame: true});
-    
+        //load the user into a queue in the database
+        this.addUsertoQueue()
 
 
     }
+
+    removeUserFromQueue = () => {
+        rebase.fetch(`queue`, {
+            context: this,
+            asArray: true,
+            then(data){
+              console.log(data);
+              console.log(data.length)
+
+              for (var i = 0; i < data.length; i++){
+                  if (data[i].uid === this.props.playerID){
+
+                    rebase.remove(`queue/${data[i].key}`, function(err){
+                        if(err){
+                          console.log("Error in homes for removing user from queue")
+                        }
+                      });
+
+                  }
+              }
+
+
+
+            }
+          });
+        
+        
+        
+    }
+
     cancelSearch = () => {
         this.setState({searchingForGame: false});
+        this.removeUserFromQueue()
     }
 
 
