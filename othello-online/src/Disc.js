@@ -9,7 +9,18 @@ class Disc extends Component {
         })
     }
 
+    validMove = () => {
+        //Implement this later
+        if(this.props.col === "green"){
+
+        } else { //Piece is already clicked, so don't do anything
+            //return false
+        }
+        return true;
+    }
+
     onClick = (event) => {
+        if(validMove)
         this.props.changeDiscColor(this.props.row, this.props.col, "black")
     }
 

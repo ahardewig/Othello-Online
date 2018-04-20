@@ -38,6 +38,14 @@ class GameBoard extends Component {
     //         }
     //     })
     // }
+    getBoardState = () => {
+        return this.state
+    }
+
+    setBoardState = (newState) => {
+        this.setState(newState)
+    }
+
     changeDiscColor = (row, col, color) => {
         let newState = { ...this.state }
         newState.board[row][col] = color
@@ -47,7 +55,8 @@ class GameBoard extends Component {
     renderRow = (rowNum) => {
         let row = []
         for(var i = 0; i < 8; i++){
-            row.push(<Disc row={rowNum} col={i} color={this.state.board[rowNum][i]} changeDiscColor={this.changeDiscColor}/>) //TODO: make color change dynamically
+            row.push(<Disc row={rowNum} col={i} color={this.state.board[rowNum][i]} changeDiscColor={this.changeDiscColor}
+                        getBoardState={this.getBoardState} setBoardState={this.setBoardState}/>) //TODO: make color change dynamically
         }
         return row
     }
