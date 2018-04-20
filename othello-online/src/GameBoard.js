@@ -65,13 +65,92 @@ class GameBoard extends Component {
             }
         }
         if(blackScore > whiteScore){ //Black wins
-            this.state.game.winnerID = this.state.game.blackPlayerID
-            //rebase.update
-        } else if (blackScore === whiteScore) { //Tie
-            this.state.game.winnerID = "Tie" //TODO: handle ties
+            const newState = { ...this.state }
+            newState.game.winnerID = this.state.game.blackPlayerID
+            this.setState(newState)
+            rebase.fetch(`users/${this.state.game.blackPlayerID}/numWins`, {
+                context: this,
+                then(data){
+                    let newNumWins = data;
+                    newNumWins++;
+                    rebase.update(`users/${this.state.game.blackPlayerID}`, {
+                        data: {
+                            numWins: newNumWins,
+                        }
+                    })
+                }
+            })
+            rebase.fetch(`users/${this.state.game.whitePlayerID}/numLosses`, {
+                context: this,
+                then(data){
+                    let newNumLosses = data;
+                    newNumLosses;
+                    rebase.update(`users/${this.state.game.whitePlayerID}`, {
+                        data: {
+                            numLosses: newNumLosses,
+                        }
+                    })
+                }
+            })
 
+        } else if (blackScore === whiteScore) { //Tie
+            const newState = { ...this.state }
+            newState.game.winnerID = "Tie"
+            this.setState(newState)
+
+            rebase.fetch(`users/${this.state.game.whitePlayerID}/numTies`, {
+                context: this,
+                then(data){
+                    let newNumTies = data;
+                    newNumTies++;
+                    rebase.update(`users/${this.state.game.whitePlayerID}`, {
+                        data: {
+                            numTies: newNumTies,
+                        }
+                    })
+                }
+            })
+            rebase.fetch(`users/${this.state.game.blackPlayerID}/numTies`, {
+                context: this,
+                then(data){
+                    let newNumTies = data;
+                    newNumTies++;
+                    rebase.update(`users/${this.state.game.blackPlayerID}`, {
+                        data: {
+                            numTies: newNumTies,
+                        }
+                    })
+                }
+            })
+            
         } else { //White wins
-            this.state.game.winnerID = this.state.game.whitePlayerID
+            const newState = { ...this.state }
+            newState.game.winnerID = this.state.game.whitePlayerID
+            this.setState(newState)
+            rebase.fetch(`users/${this.state.game.whitePlayerID}/numWins`, {
+                context: this,
+                then(data){
+                    let newNumWins = data;
+                    newNumWins++;
+                    rebase.update(`users/${this.state.game.whitePlayerID}`, {
+                        data: {
+                            numWins: newNumWins,
+                        }
+                    })
+                }
+            })
+            rebase.fetch(`users/${this.state.game.blackPlayerID}/numLosses`, {
+                context: this,
+                then(data){
+                    let newNumLosses = data;
+                    newNumLosses;
+                    rebase.update(`users/${this.state.game.blackPlayerID}`, {
+                        data: {
+                            numLosses: newNumLosses,
+                        }
+                    })
+                }
+            })
         }
     }
 
