@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import rebase from './rebase.js'
+import Disc from './Disc.js'
 
 class GameBoard extends Component {
     constructor(){
@@ -11,6 +12,7 @@ class GameBoard extends Component {
     }
     componentWillMount = () => {
         //rebase.syncState(`games/${this.props.gameID}/board`, {
+        //this.testFunc()
         rebase.syncState(`games/testingID/board`, {
             context: this,
             state: 'board',
@@ -22,10 +24,25 @@ class GameBoard extends Component {
         })
     }
 
+    // testFunc = () => { //add dummy data for testing
+    //     rebase.post(`games/testingID/board`, {
+    //         data: {
+    //             0: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             1: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             2: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             3: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             4: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             5: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             6: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //             7: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //         }
+    //     })
+    // }
+
     renderRow = (rowNum) => {
         let row = []
         for(var i = 0; i < 8; i++){
-            row.push(<p>testing {i}</p>)
+            row.push(<Disc row={rowNum} col={i} color={this.state.board[rowNum][i]}/>) //TODO: make color change dynamically
         }
         return row
     }
