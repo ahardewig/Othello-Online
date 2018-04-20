@@ -88,7 +88,7 @@ class App extends Component {
           if (!isObjectEmpty(this.state.user) ){
             console.log(this.state.user)
             console.log(this.state.user.uid)
-            return <Home playerID={this.state.user.uid} getAppState={this.getAppState} setAppState={this.setAppState} goToUrl={this.goToUrl} />
+            //return <Home playerID={this.state.user.uid} getAppState={this.getAppState} setAppState={this.setAppState} goToUrl={this.goToUrl} />
             return <GameBoard playerID="abcd"/>
           }
           else {
