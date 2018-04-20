@@ -25,7 +25,6 @@ class App extends Component {
     }
   
 
-
     componentWillMount() {
       auth.onAuthStateChanged((user) => {
         if (user) {

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { auth, google } from "./rebase.js"
 
 //import amoraLogo from "./images/amora_logo.png"
-//import googleLoginNormal from "./images/btn_google_signin_light_normal_web@2x.png"
+import googlepic from "./btn_google_signin_light_normal_web@2x.png"
 import "./Login.css"
+
 
 class Login extends Component {
     constructor() {
@@ -33,7 +34,7 @@ class Login extends Component {
                 <center><img alt={"Othello-Online"} className="othello" /></center>
                 <div className="subtitle">Teamwork Makes the Dream Work</div>
 
-                <img alt={"Login"} onClick={this.signin} className="googleLogin" ></img>
+                <img alt={"Login"} onClick={this.signin} className="googleLogin" src={googlepic} ></img>
             </div>
 
           </div>

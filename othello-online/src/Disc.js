@@ -20,7 +20,7 @@ class Disc extends Component {
     }
 
     onClick = (event) => {
-        if(validMove)
+        //if(validMove)
         this.props.changeDiscColor(this.props.row, this.props.col, "black")
     }
 
