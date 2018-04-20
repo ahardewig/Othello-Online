@@ -11,6 +11,9 @@ class Home extends Component {
 
     constructor() {
       super();
+      this.state = {
+          searchingForGame: false
+      }
     }
 
 
@@ -20,10 +23,12 @@ class Home extends Component {
   
 
     componentWillMount() {
+        //fetch user data
       
     }
 
     startGame = () => {
+        //set searchingForGame to true and rerender to a dif loading screen
 
 
     }
@@ -39,16 +44,13 @@ class Home extends Component {
             <br></br><button onClick={this.startGame()}>Start Game</button><br></br>
             <br></br><button onClick={this.joinGame()}>Join Game</button>
 
-
-
-
                     <div style={{width: '100%', height: '100%', backgroundColor: '#F8F8F8'}}>
                         <Switch>
                             
                             
-                            <Route path="/createproject" render={() => {
+                            {/* <Route path="/createproject" render={() => {
                                 return <CreateProjectForm goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
-                            }} />
+                            }} /> */}
     
                         </Switch>
                     </div>
