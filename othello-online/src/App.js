@@ -6,6 +6,7 @@ import rebase, { auth } from "./rebase.js"
 import { Route, Switch, Redirect } from "react-router-dom";
 import { isObjectEmpty, buildUserFromGoogle } from "./apphelpers.js"
 import Login from "./Login.js"
+import Home from "./Home.js"
 
 class App extends Component {
 
@@ -22,6 +23,17 @@ class App extends Component {
         data: user
       });
      
+    }
+
+    checkIfUserIsInDatabase(user) {
+      // let inDataBase = false
+      rebase.fetch(`users/${user.uid}`, {
+        context: this
+      }).then((data) => {
+        if (isObjectEmpty(data)) {
+          this.postUser(user)
+        }
+      })
     }
   
 
@@ -55,6 +67,18 @@ class App extends Component {
       })
     }
 
+    getAppState = () => {
+      return this.state;
+    }
+  
+    setAppState = (newState) => {
+      this.setState(newState)
+    }
+  
+    goToUrl = (url) => {
+      this.props.history.push(url)
+    }
+  
 
   render() {
     return (
@@ -62,9 +86,13 @@ class App extends Component {
       <Switch>
         <Route path="/" render={() => {
           if (!isObjectEmpty(this.state.user) ){
-            return <GameBoard />
+            console.log(this.state.user)
+            console.log(this.state.user.uid)
+            return <Home username = {this.state.user.displayName} playerID={this.state.user.uid} getAppState={this.getAppState} setAppState={this.setAppState} goToUrl={this.goToUrl} />
+            //return <GameBoard playerID="abcd"/>
           }
           else {
+            console.log("hi")
             return <Login />
           }
         }} />
