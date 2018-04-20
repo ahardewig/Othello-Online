@@ -12,7 +12,11 @@ export function buildUserFromGoogle(user) {
         displayName: user.displayName,
         email: user.email,
         uid: user.uid,
-        searchingForGame: false
+        searchingForGame: false,
+        numWins: 0,
+        numLosses: 0,
+        numTies: 0,
+
     }
     return newUser
 }

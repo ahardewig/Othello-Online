@@ -9,17 +9,20 @@ import Login from "./Login.js"
 import ReactLoading from "react-loading";
 
 class Home extends Component {
-
-    constructor() {
-      super();
+    //BLACK PLAYER IS FIRST PLAYER
+    //WHITE PLAYER IS SECOND PLAYER
+    constructor(props) {
+      super(props);
       this.state = {
           searchingForGame: false,
-          user: "john"
+          currentGame: "",
+
       }
+      this.pushGameFields = this.pushGameFields.bind(this)
     }
 
     componentWillMount() {
-        //fetch user data
+        //fetch user data like current Game
       
     }
 
@@ -44,16 +47,78 @@ class Home extends Component {
           });
     }
 
+    pushGameFields = (first, second) => {
+        //black player is first, 
+        //inputs are keys
+        var key = rebase.push(`games`, {
+            data: {piecesRemaining: 60, winnerID: "", blackPlayerID: first, board: {0: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            1: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            2: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            3: {0: "green",1: "green",2: "green",3: "white",4: "black",5: "green",6: "green",7: "green",},
+            4: {0: "green",1: "green",2: "green",3: "black",4: "white",5: "green",6: "green",7: "green",},
+            5: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            6: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            7: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",}} ,colorsTurn: "black", whitePlayerID: second}    
+
+        }).then(newLocation => {
+            //route to the game
+            console.log(newLocation.path.pieces_[1])
+            var gameID = newLocation.path.pieces_[1]
+            console.log(gameID)
+            this.setState({currentGame: gameID});
+            this.props.goToUrl(`/gameScreen`)
+            // return <GameBoard playerID="abcd" gameID="testingID"/>
+        })
+          ;
+
+          // testFunc = () => { //add dummy data for testing
+    //     rebase.post(`games/testingID/board`, {
+    //         data: {
+    //             0: {0: "white",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "black",},
+    //             1: {0: "white",1: "black",2: "white",3: "black",4: "black",5: "white",6: "white",7: "black",},
+    //             2: {0: "black",1: "white",2: "white",3: "white",4: "white",5: "white",6: "white",7: "black",},
+    //             3: {0: "white",1: "white",2: "black",3: "white",4: "white",5: "white",6: "white",7: "black",},
+    //             4: {0: "white",1: "black",2: "black",3: "black",4: "white",5: "black",6: "white",7: "black",},
+    //             5: {0: "white",1: "black",2: "black",3: "black",4: "white",5: "white",6: "white",7: "white",},
+    //             6: {0: "white",1: "white",2: "white",3: "black",4: "white",5: "white",6: "white",7: "white",},
+    //             7: {0: "white",1: "black",2: "white",3: "white",4: "white",5: "white",6: "white",7: "white",},
+    //         }
+    //     })
+    // }
+
+    }
+
     searchForGame = () => {
         //set searchingForGame to true to popup the loading symbol
             this.setState({searchingForGame: true});
         //load the user into a queue in the database
-        this.addUsertoQueue()
+        //check if others in queue, if so load the game
+        
+        rebase.fetch(`queue`, {
+            context: this,
+            asArray: true,
+            then(data){
+              console.log(data);
+              console.log(data.length)
+                if (data.length >= 1){
+                    //this.removeUserFromQueue(data[0].uid)
+                    //current user is second player, so start the game
+                    this.pushGameFields(this.props.playerID,data[0].uid)
 
+                    
+                }
+                else {
+                    //user is first player, so wait in the queue
+                    this.addUsertoQueue()
+                }
+              
+            }
+          });
+        
 
     }
 
-    removeUserFromQueue = () => {
+    removeUserFromQueue = (playerID) => {
         rebase.fetch(`queue`, {
             context: this,
             asArray: true,
@@ -62,29 +127,22 @@ class Home extends Component {
               console.log(data.length)
 
               for (var i = 0; i < data.length; i++){
-                  if (data[i].uid === this.props.playerID){
+                  if (data[i].uid === playerID){
 
                     rebase.remove(`queue/${data[i].key}`, function(err){
                         if(err){
                           console.log("Error in homes for removing user from queue")
                         }
                       });
-
                   }
               }
-
-
-
             }
-          });
-        
-        
-        
+          }); 
     }
 
     cancelSearch = () => {
         this.setState({searchingForGame: false});
-        this.removeUserFromQueue()
+        this.removeUserFromQueue(this.props.playerID)
     }
 
 
@@ -100,7 +158,10 @@ class Home extends Component {
 
                     <div style={{width: '100%', height: '100%', backgroundColor: '#F8F8F8'}}>
                         <Switch>
-                            
+
+                            <Route path="/gameScreen" render={() => {
+                                return <GameBoard playerID={this.props.playerID} gameID={this.state.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
+                            }} />
                             
                             {/* <Route path="/createproject" render={() => {
                                 return <CreateProjectForm goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
