@@ -11,8 +11,9 @@ class Disc extends Component {
 
     validMove = () => {
         //Implement this later
-        if(this.props.col === "green"){
-
+        if(this.props.col === "green"){ 
+            //TODO: check if this spot is adjacent to another piece and therefore a valid move
+            
         } else { //Piece is already clicked, so don't do anything
             //return false
         }
@@ -20,8 +21,13 @@ class Disc extends Component {
     }
 
     onClick = (event) => {
-        if(validMove)
-        this.props.changeDiscColor(this.props.row, this.props.col, "black")
+        if(validMove){
+            this.props.changeDiscColor(this.props.row, this.props.col, "black")
+        } else { //Not a valid move
+            return
+            //Add error or something?
+        }
+        
     }
 
     render = () => {
