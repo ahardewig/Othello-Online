@@ -16,6 +16,7 @@ export function buildUserFromGoogle(user) {
         numWins: 0,
         numLosses: 0,
         numTies: 0,
+        currentGame: "",
 
     }
     return newUser

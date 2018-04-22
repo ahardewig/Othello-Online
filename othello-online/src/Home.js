@@ -77,7 +77,12 @@ class Home extends Component {
             rebase.update(`users/${second}`, {
                 data: {currentGame: gameID}
               }).then(() => {
-                this.props.goToUrl(`/gameScreen`)
+                rebase.update(`users/${first}`, {
+                    data: {currentGame: gameID}
+                  }).then(() => {
+                    this.props.goToUrl(`/gameScreen`)
+                  })
+                
               })
 
             //this.props.goToUrl(`/gameScreen`)
@@ -105,6 +110,7 @@ class Home extends Component {
     searchForGame = () => {
         //set searchingForGame to true to popup the loading symbol
             this.setState({searchingForGame: true});
+            console.log("SEARCH FOR GAME TRIGGERED")
         //load the user into a queue in the database
         //check if others in queue, if so load the game
         
@@ -116,6 +122,7 @@ class Home extends Component {
               console.log(data.length)
                 if (data.length >= 1){
                     this.removeUserFromQueue(data[0].uid)
+                    this.setState({searchingForGame: false});
                     //current user is second player, so start the game
                     this.pushGameFields(this.props.playerID,data[0].uid)
 
@@ -184,19 +191,9 @@ class Home extends Component {
             <br></br><button hidden={!this.state.searchingForGame} onClick={this.cancelSearch}>Cancel search</button>
             <ReactLoading type={"spokes"} color="#000000" height={20} width={parseInt(this.loadingSymbolToggle())} />
 
-                    <div style={{width: '100%', height: '100%', backgroundColor: '#F8F8F8'}}>
-                        <Switch>
-
-                            <Route path="/gameScreen" render={() => {
-                                return <GameBoard playerID={this.props.playerID} gameID={this.state.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
-                            }} />
-                            
-                            {/* <Route path="/createproject" render={() => {
-                                return <CreateProjectForm goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
-                            }} /> */}
-    
-                        </Switch>
-                    </div>
+                    {/* <div style={{width: '100%', height: '100%', backgroundColor: '#F8F8F8'}}> */}
+                        
+                    {/* </div> */}
       </div>
     );
   }

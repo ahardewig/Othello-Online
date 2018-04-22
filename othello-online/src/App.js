@@ -88,11 +88,12 @@ class App extends Component {
           if (!isObjectEmpty(this.state.user) ){
             console.log(this.state.user)
             console.log(this.state.user.uid)
-            if (this.state.user.currentGame){
+            if (this.state.user.currentGame !== ""){
               // rebase.update(`users/${this.state.user.uid}`, {
               //   data: {currentGame: this.state.user.currentGame}
               // }).then(() => {
-                return <GameBoard playerID={this.props.playerID} gameID={this.state.user.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
+                console.log("showing Gameboard")
+                return <GameBoard playerID={this.state.user.uid} gameID={this.state.user.currentGame} goToUrl={this.goToUrl} getAppState={this.getAppState}/>
               //})
             }
             else {
@@ -105,6 +106,20 @@ class App extends Component {
             return <Login />
           }
         }} />
+
+
+
+            <Route path="/gameScreen" render={() => {
+              console.log("showing game 2")
+              console.log(this.props)
+              console.log(this.state.currentGame) 
+              //if (this.state.currentGame){
+                return <GameBoard playerID={this.props.playerID} gameID={this.state.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
+              //}
+            }} />
+
+
+
       
         </Switch>
       </div>

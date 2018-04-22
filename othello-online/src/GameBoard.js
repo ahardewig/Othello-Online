@@ -240,6 +240,16 @@ class GameBoard extends Component {
         
     }
 
+    goHome = () => {
+        console.log(this.props)
+        rebase.update(`users/${this.props.playerID}`, {
+            data: {currentGame: ''},
+            then(err){
+            }
+        });
+    }
+
+
     render = () => {
         let rows = [];
         let gameStatus = this.renderStatusMessage();
@@ -250,6 +260,7 @@ class GameBoard extends Component {
             }
             return (
                 <div >
+                    <div><br></br><button onClick={this.goHome}>Home</button><br></br></div>
                     <div>
                     <p style=
                         {{backgroundColor: '#000030',
