@@ -174,7 +174,7 @@ class GameBoard extends Component {
             if(this.state.game.piecesRemaining > 0){
                 return (
                     <div>
-                        <h3>Game running.</h3>
+                        <h3>Game running. Your color: {this.state.playerColor}</h3>
                     </div>
                 )
             } else {
