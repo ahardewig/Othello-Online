@@ -41,29 +41,36 @@ class Disc extends Component {
                 for(var i = 0; i < toFlip.length; i++){
                     this.props.changeDiscColor(toFlip[i].r, toFlip[i].c, playerColor)
                 }
+                console.log("returning true")
                 return true
             } else if (currColor === "green") {
                 //Hit a green piece, so stop. Not a valid move.
+                console.log("checkflip returning false - hit a green")
+
                 return false
             }
             currentRow = currentRow + rowChange
             currentCol = currentCol + colChange
         }
         //Didn't hit green, but also didn't hit another piece of yours. Invalid move.
+        console.log("checkflip returning false")
         return false
     }
 
     validMove = () => {
         if(this.props.playerColor !== this.props.getGameBoardState().game.colorsTurn){
+            console.log("Not your turn")
             return false    //don't do anything if it's not their turn
         }
+        let oppositeColor = "white"
+        if(this.props.playerColor === "white"){
+            oppositeColor = "black"
+        }
+        
         let checkRow, checkCol
         if(this.props.color === "green"){ 
-            let valid = false;
-            let oppositeColor = "white"
-            if(this.props.playerColor === "white"){
-                oppositeColor = "black"
-            }
+            console.log("Clicked green")
+            let valid = false;            
             //Check if this is adjacent to another piece and therefore valid
             // x  y  z
             // x  y  z
@@ -76,7 +83,10 @@ class Disc extends Component {
                     continue
                 } else {
                     if(this.getColorFromCoords(checkRow, checkCol) === oppositeColor){
-                        valid = this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)
+                        console.log("check 1")
+                        if(this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)){
+                            valid = true
+                        }
                     } else {
                         continue
                     }
@@ -91,7 +101,11 @@ class Disc extends Component {
                     continue
                 } else {
                     if(this.getColorFromCoords(checkRow, checkCol) === oppositeColor){
-                        valid = this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)
+                        console.log("check 2")
+
+                        if(this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)){
+                            valid = true
+                        }
                     } else {
                         continue
                     }
@@ -103,7 +117,11 @@ class Disc extends Component {
             checkCol = this.props.col
             if(this.validCoord(checkRow, checkCol)){
                 if(this.getColorFromCoords(checkRow, checkCol) === oppositeColor){
-                    valid = this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)
+                    console.log("check 3")
+
+                    if(this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)){
+                        valid = true
+                    }
                 }
             }
             //Check bottom middle
@@ -111,12 +129,17 @@ class Disc extends Component {
             checkCol = this.props.col
             if(this.validCoord(checkRow, checkCol)){
                 if(this.getColorFromCoords(checkRow, checkCol) === oppositeColor){
-                    valid = this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)
+                    console.log("check 4")
+
+                    if(this.checkLineAndFlip(this.props.row, this.props.col, checkRow, checkCol, this.props.playerColor)){
+                        valid = true
+                    }
                 }
             }
             
             return valid;
         } else { //Piece is already clicked, so invalid
+            console.log("Clicked non-green piece")
             return false
         }
     }
@@ -133,7 +156,10 @@ class Disc extends Component {
                 newState.game.colorsTurn = "white"
             }
             if(newState.game.piecesRemaining === 0){
+                this.props.setGameBoardState(newState)
                 this.props.declareWinner();
+                console.log("Game is over")
+                return
             }
             this.props.setGameBoardState(newState)
         } else { //Not a valid move
