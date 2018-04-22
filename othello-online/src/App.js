@@ -89,7 +89,11 @@ class App extends Component {
             console.log(this.state.user)
             console.log(this.state.user.uid)
             if (this.state.user.currentGame){
-              return <GameBoard playerID={this.props.playerID} gameID={this.state.user.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
+              rebase.update(`users/${this.state.user.uid}`, {
+                data: {currentGame: gameID}
+              }).then(() => {
+                return <GameBoard playerID={this.props.playerID} gameID={this.state.user.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
+              })
             }
             else {
                 return <Home username = {this.state.user.displayName} playerID={this.state.user.uid} getAppState={this.getAppState} setAppState={this.setAppState} goToUrl={this.goToUrl} />
