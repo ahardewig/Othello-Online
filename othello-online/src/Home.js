@@ -21,7 +21,7 @@ class Home extends Component {
       this.pushGameFields = this.pushGameFields.bind(this)
     }
 
-    componentWillMount() {
+    componentDidMount() {
         //fetch user data like current Game
       
     }
@@ -41,10 +41,15 @@ class Home extends Component {
 
     }
 
+    testfunction = () => {
+        this.props.goToUrl(`/gameScreen`)
+    }
+
     addUsertoQueue = () => {
         rebase.push(`queue`, {
             data: {username: this.props.username, uid: this.props.playerID},
-          });
+          })
+            
     }
 
     pushGameFields = (first, second) => {
@@ -66,7 +71,15 @@ class Home extends Component {
             var gameID = newLocation.path.pieces_[1]
             console.log(gameID)
             this.setState({currentGame: gameID});
-            this.props.goToUrl(`/gameScreen`)
+
+            //push second to gameID
+            rebase.update(`users/${second}`, {
+                data: {currentGame: gameID}
+              }).then(() => {
+                this.props.goToUrl(`/gameScreen`)
+              })
+
+            //this.props.goToUrl(`/gameScreen`)
             // return <GameBoard playerID="abcd" gameID="testingID"/>
         })
           ;
@@ -101,7 +114,7 @@ class Home extends Component {
               console.log(data);
               console.log(data.length)
                 if (data.length >= 1){
-                    //this.removeUserFromQueue(data[0].uid)
+                    this.removeUserFromQueue(data[0].uid)
                     //current user is second player, so start the game
                     this.pushGameFields(this.props.playerID,data[0].uid)
 
@@ -110,6 +123,16 @@ class Home extends Component {
                 else {
                     //user is first player, so wait in the queue
                     this.addUsertoQueue()
+                    //put a listener on the person with a callback to change once player is in game
+                    // rebase.listenTo(`users/${this.props.playerID}`, {
+                    //     context: this,
+                    //     asArray: true,
+                    //     then(Data){
+                    //         this.props.goToUrl(`/gameScreen`)
+                    //       //this.setState({total});
+                    //     }
+                    //   })
+                
                 }
               
             }
