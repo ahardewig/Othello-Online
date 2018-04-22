@@ -182,12 +182,14 @@ class GameBoard extends Component {
                         </div>
                     )
                 } else {
-                    <div>
-                        <h3>Game running. Your color: {this.state.playerColor}</h3>
+                    return(
                         <div>
-                            <h3>Wait for your opponent to make their move.</h3>
+                            <h3>Game running. Your color: {this.state.playerColor}</h3>
+                            <div>
+                                <h3>Wait for your opponent to make their move.</h3>
+                            </div>
                         </div>
-                    </div>
+                    )
                 }
             } else {
                 return (
