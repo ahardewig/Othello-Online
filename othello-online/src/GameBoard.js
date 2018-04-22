@@ -84,7 +84,7 @@ class GameBoard extends Component {
                 context: this,
                 then(data){
                     let newNumLosses = data;
-                    newNumLosses;
+                    newNumLosses++;
                     rebase.update(`users/${this.state.game.whitePlayerID}`, {
                         data: {
                             numLosses: newNumLosses,
@@ -143,7 +143,7 @@ class GameBoard extends Component {
                 context: this,
                 then(data){
                     let newNumLosses = data;
-                    newNumLosses;
+                    newNumLosses++;
                     rebase.update(`users/${this.state.game.blackPlayerID}`, {
                         data: {
                             numLosses: newNumLosses,
