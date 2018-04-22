@@ -176,11 +176,21 @@ class Home extends Component {
         this.removeUserFromQueue(this.props.playerID)
     }
 
+    logout = () => {
+        const newState = { ...this.props.getAppState() }
+        newState.user = { }
+        this.props.setAppState(newState)
+        auth.signOut()
+    }
+
 
   render() {
     return (
       <div className="Home" style={{height: '100vh', width: '100%', background: 'white'}}>
-            <text>Welcome {this.props.username}!</text>
+            <p align="left">
+                Welcome {this.props.username}!
+                <br></br><button onClick={this.logout}>Logout</button><br></br>
+            </p>
             <br></br>
             <text> Num Wins: {this.props.numWins} </text><br></br>
             <text> Num Losses: {this.props.numLosses} </text><br></br>
@@ -190,10 +200,6 @@ class Home extends Component {
             <br></br><button onClick={this.searchForGame}>Search for a game</button><br></br>
             <br></br><button hidden={!this.state.searchingForGame} onClick={this.cancelSearch}>Cancel search</button>
             <ReactLoading type={"spokes"} color="#000000" height={20} width={parseInt(this.loadingSymbolToggle())} />
-
-                    {/* <div style={{width: '100%', height: '100%', backgroundColor: '#F8F8F8'}}> */}
-                        
-                    {/* </div> */}
       </div>
     );
   }

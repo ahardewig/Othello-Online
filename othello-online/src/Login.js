@@ -31,8 +31,8 @@ class Login extends Component {
           <div className="container">
 
             <div>
-                <center><img alt={"Othello-Online"} className="othello" /></center>
-                <div className="subtitle">Teamwork Makes the Dream Work</div>
+                <center><img className="othello" /></center>
+                <div className="subtitle">Login to play Othello with your friends!</div>
 
                 <img alt={"Login"} onClick={this.signin} className="googleLogin" src={googlepic} ></img>
             </div>
