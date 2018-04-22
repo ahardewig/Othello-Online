@@ -21,8 +21,9 @@ class Home extends Component {
       this.pushGameFields = this.pushGameFields.bind(this)
     }
 
-    componentDidMount() {
+    componentWillMount() {
         //fetch user data like current Game
+
       
     }
 
@@ -173,7 +174,11 @@ class Home extends Component {
     return (
       <div className="Home" style={{height: '100vh', width: '100%', background: 'white'}}>
             <text>Welcome {this.props.username}!</text>
-            <br></br><br></br><br></br><br></br><br></br>
+            <br></br>
+            <text> Num Wins: {this.props.numWins} </text><br></br>
+            <text> Num Losses: {this.props.numLosses} </text><br></br>
+            <text> Num Ties: {this.props.numTies} </text><br></br>
+            <br></br><br></br><br></br><br></br>
             <text style={{background: 'white', color: 'black', size: '20'}}>Welcome to Othello-Online!</text>
             <br></br><button onClick={this.searchForGame}>Search for a game</button><br></br>
             <br></br><button hidden={!this.state.searchingForGame} onClick={this.cancelSearch}>Cancel search</button>

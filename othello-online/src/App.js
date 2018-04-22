@@ -96,7 +96,7 @@ class App extends Component {
               //})
             }
             else {
-                return <Home username = {this.state.user.displayName} playerID={this.state.user.uid} getAppState={this.getAppState} setAppState={this.setAppState} goToUrl={this.goToUrl} />
+                return <Home numWins={this.state.user.numWins} numLosses={this.state.user.numLosses} numTies={this.state.user.numTies} username = {this.state.user.displayName} playerID={this.state.user.uid} getAppState={this.getAppState} setAppState={this.setAppState} goToUrl={this.goToUrl} />
                 //return <GameBoard playerID="abcd" gameID="testingID"/>
             }
           }
