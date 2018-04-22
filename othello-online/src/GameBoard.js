@@ -20,7 +20,7 @@ class GameBoard extends Component {
             then(data){
                 let newState = { ...this.state }
                 newState.boardSynced = true
-                if(this.props.playerID === newState.game.blackPlayer){
+                if(this.props.playerID === newState.game.blackPlayerID){
                     newState.playerColor = "black"
                 } else {
                     newState.playerColor = "white"
