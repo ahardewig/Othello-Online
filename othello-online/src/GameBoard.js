@@ -172,11 +172,23 @@ class GameBoard extends Component {
     renderStatusMessage = () => {
         if(this.state.boardSynced){
             if(this.state.game.piecesRemaining > 0){
-                return (
+                if(this.state.game.colorsTurn === this.state.playerColor){
+                    return (
+                        <div>
+                            <h3>Game running. Your color: {this.state.playerColor}</h3>
+                            <div>
+                                <h3>It's your turn!</h3>
+                            </div>
+                        </div>
+                    )
+                } else {
                     <div>
                         <h3>Game running. Your color: {this.state.playerColor}</h3>
+                        <div>
+                            <h3>Wait for your opponent to make their move.</h3>
+                        </div>
                     </div>
-                )
+                }
             } else {
                 return (
                     <div>
@@ -194,29 +206,36 @@ class GameBoard extends Component {
     }
 
     renderWinnerMessage = () => {
-        if (this.state.game.winnerID === ""){
+        if(this.state.boardSynced){
+            if (this.state.game.winnerID === ""){
+                return (
+                    <div></div>
+                )
+            } else if (this.state.game.winnerID === "Tie") {
+                return (
+                    <div>
+                        <h2>It was a tie!</h2>
+                    </div>
+                )
+            } else if (this.props.playerID === this.state.game.winnerID) {
+                return (
+                    <div>
+                        <h2>You won!</h2>
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <h2>You lost.</h2>
+                    </div>
+                )
+            }
+        } else { //game not loaded
             return (
                 <div></div>
             )
-        } else if (this.state.game.winnerID === "Tie") {
-            return (
-                <div>
-                    <h2>It was a tie!</h2>
-                </div>
-            )
-        } else if (this.props.playerID === this.state.game.winnerID) {
-            return (
-                <div>
-                    <h2>You won!</h2>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    <h2>You lost.</h2>
-                </div>
-            )
         }
+        
     }
 
     render = () => {
@@ -227,8 +246,6 @@ class GameBoard extends Component {
             for(var i = 0; i < 8; i++){
                 rows.push(<div>{this.renderRow(i)}</div>)
             }
-    
-
             return (
                 <div >
                     <div>
@@ -258,6 +275,7 @@ class GameBoard extends Component {
                         </div>
                     </div>
                         {gameStatus}
+                        {resultMessage}
                 </div>
             )
         } else {
