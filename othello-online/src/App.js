@@ -107,15 +107,8 @@ class App extends Component {
           }
         }} />
 
-
-
             <Route path="/gameScreen" render={() => {
-              console.log("showing game 2")
-              console.log(this.props)
-              console.log(this.state.currentGame) 
-              //if (this.state.currentGame){
-                return <GameBoard playerID={this.props.playerID} gameID={this.state.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
-              //}
+                return <GameBoard playerID={this.state.user.uid} gameID={this.state.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
             }} />
 
 

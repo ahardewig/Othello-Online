@@ -7,6 +7,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { isObjectEmpty, buildUserFromGoogle } from "./apphelpers.js"
 import Login from "./Login.js"
 import ReactLoading from "react-loading";
+import OthelloPicture from "./Othello-Picture.png"
 
 class Home extends Component {
     //BLACK PLAYER IS FIRST PLAYER
@@ -189,17 +190,27 @@ class Home extends Component {
       <div className="Home" style={{height: '100vh', width: '100%', background: 'white'}}>
             <p align="left">
                 Welcome {this.props.username}!
-                <br></br><button onClick={this.logout}>Logout</button><br></br>
+                
             </p>
             <br></br>
             <text> Num Wins: {this.props.numWins} </text><br></br>
             <text> Num Losses: {this.props.numLosses} </text><br></br>
             <text> Num Ties: {this.props.numTies} </text><br></br>
-            <br></br><br></br><br></br><br></br>
+            <br></br><br></br><br></br>
             <text style={{background: 'white', color: 'black', size: '20'}}>Welcome to Othello-Online!</text>
+            <br></br>
+            <center><img alt={"Othello-Picture"} className="Othello" src={OthelloPicture} /></center>
+            <br></br><br></br><br></br><br></br><br></br><br></br>
+            
             <br></br><button onClick={this.searchForGame}>Search for a game</button><br></br>
             <br></br><button hidden={!this.state.searchingForGame} onClick={this.cancelSearch}>Cancel search</button>
-            <ReactLoading type={"spokes"} color="#000000" height={20} width={parseInt(this.loadingSymbolToggle())} />
+            <p align="center">
+                <ReactLoading type={"spokes"} color="#000000" height={20} width={parseInt(this.loadingSymbolToggle())} />
+            </p>
+            <p align="left">
+                <br></br><button style={{background: 'none', border: 'none', 'font-size': '20px', 'margin-top': '100px', 'position':'absolute', 'padding-bottom': '20px'}} onClick={this.logout}>Logout</button><br></br>
+                
+            </p>
       </div>
     );
   }
