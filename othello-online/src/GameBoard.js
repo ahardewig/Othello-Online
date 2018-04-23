@@ -485,7 +485,7 @@ class GameBoard extends Component {
                 <div >
                     <div>
                     <p style=
-                        {{backgroundColor: '#000030',
+                        {{backgroundColor: '#000099',
                             color: 'white',
                             fontSize: '30px',
                             padding: "20px 20px",

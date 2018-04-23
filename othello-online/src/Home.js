@@ -211,7 +211,16 @@ class Home extends Component {
 
             }}
             onClick={this.searchForGame}>Search for a game</button><br></br>
-            <br></br><button hidden={!this.state.searchingForGame} onClick={this.cancelSearch}>Cancel search</button>
+            <br></br><button 
+            style={{
+                borderRadius: "500px",
+                padding: '10px 50px',
+                color: 'white',
+                backgroundColor: 'black',
+                fontSize: '20px'
+
+            }}
+            hidden={!this.state.searchingForGame} onClick={this.cancelSearch}>Cancel search</button>
             <p align="center">
                 <ReactLoading type={"spokes"} color="#000000" height={20} width={parseInt(this.loadingSymbolToggle())} />
             </p>
