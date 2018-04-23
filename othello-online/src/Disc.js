@@ -271,14 +271,14 @@ class Disc extends Component {
                 this.props.declareWinner();
                 return
             }
-            if(!this.playerHasMove(newState.game.colorsTurn)){  //Make sure that the opponent has a valid move. If not, skip their turn.
-                newState.game.colorsTurn = this.props.playerColor
-                if(!this.playerHasMove(this.props.playerColor)){ //Nobody has moves left, so game over
-                    this.props.setGameBoardState(newState)
-                    this.props.declareWinner();
-                    return
-                }
-            }
+            // if(!this.playerHasMove(newState.game.colorsTurn)){  //Make sure that the opponent has a valid move. If not, skip their turn.
+            //     newState.game.colorsTurn = this.props.playerColor
+            //     if(!this.playerHasMove(this.props.playerColor)){ //Nobody has moves left, so game over
+            //         this.props.setGameBoardState(newState)
+            //         this.props.declareWinner();
+            //         return
+            //     }
+            // }
             newState.game.updateOpponent = true
 
             this.props.setGameBoardState(newState)

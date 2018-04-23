@@ -407,6 +407,21 @@ class GameBoard extends Component {
         });
     }
 
+    passMove = () => {
+        if(this.state.playerColor !== this.state.game.colorsTurn || this.state.game.piecesRemaining === 0){
+            return
+        } else {
+            let newState = { ...this.state }
+            if(this.state.playerColor === "white"){
+                newState.game.colorsTurn = "black"
+            } else {
+                newState.game.colorsTurn = "white"
+            }
+            newState.game.updateOpponent = true
+            this.setState(newState)
+        }
+    }
+
     render = () => {
         let rows = [];
         let gameStatus = this.renderStatusMessage();
@@ -449,6 +464,7 @@ class GameBoard extends Component {
                          }}>
                         {rows}
                         </div>
+                        <button onClick={this.passMove}>Pass</button>
                     </div>
                         {gameStatus}
                         {resultMessage}
