@@ -445,7 +445,6 @@ class GameBoard extends Component {
             }
             return (
                 <div >
-                    <div><br></br><button onClick={this.goHome}>Home</button><br></br></div>
                     <div>
                     <p style=
                         {{backgroundColor: '#000030',
@@ -471,10 +470,30 @@ class GameBoard extends Component {
                          }}>
                         {rows}
                         </div>
-                        <button onClick={this.passMove}>Pass</button>
+                        <button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                            }} onClick={this.passMove}>Pass
+                        </button>
                     </div>
                         {gameStatus}
                         {resultMessage}
+
+                    <div><br></br><button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                        }} onClick={this.goHome}>Home</button><br></br>
+                    </div>
                 </div>
             )
         } else {
