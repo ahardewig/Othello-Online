@@ -76,9 +76,14 @@ class GameBoard extends Component {
             }
         }
         if(blackScore > whiteScore){ //Black wins
-            const newState = { ...this.state }
-            newState.game.winnerID = this.state.game.blackPlayerID
-            this.setState(newState)
+            // const newState = { ...this.state }
+            // newState.game.winnerID = this.state.game.blackPlayerID
+            //this.setState(newState)
+            rebase.update(`games/${this.props.gameID}`, {
+                data: {
+                    winnerID: this.state.game.blackPlayerID
+                }
+            })
             rebase.fetch(`users/${this.state.game.blackPlayerID}/numWins`, {
                 context: this,
                 then(data){
@@ -104,10 +109,14 @@ class GameBoard extends Component {
                 }
             })
         } else if (blackScore === whiteScore) { //Tie
-            const newState = { ...this.state }
-            newState.game.winnerID = "Tie"
-            this.setState(newState)
-
+            // const newState = { ...this.state }
+            // newState.game.winnerID = "Tie"
+            // this.setState(newState)
+            rebase.update(`games/${this.props.gameID}`, {
+                data: {
+                    winnerID: "Tie"
+                }
+            })
             rebase.fetch(`users/${this.state.game.whitePlayerID}/numTies`, {
                 context: this,
                 then(data){
@@ -133,9 +142,14 @@ class GameBoard extends Component {
                 }
             })
         } else { //White wins
-            const newState = { ...this.state }
-            newState.game.winnerID = this.state.game.whitePlayerID
-            this.setState(newState)
+            // const newState = { ...this.state }
+            // newState.game.winnerID = this.state.game.whitePlayerID
+            // this.setState(newState)
+            rebase.update(`games/${this.props.gameID}`, {
+                data: {
+                    winnerID: this.state.game.whitePlayerID
+                }
+            })
             rebase.fetch(`users/${this.state.game.whitePlayerID}/numWins`, {
                 context: this,
                 then(data){
