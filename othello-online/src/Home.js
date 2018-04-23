@@ -58,7 +58,7 @@ class Home extends Component {
         //black player is first, 
         //inputs are keys
         var key = rebase.push(`games`, {
-            data: {piecesRemaining: 60, winnerID: "", blackPlayerID: first, board: {0: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            data: {piecesRemaining: 60, winnerID: "", blackPlayerID: first, updateOpponent: false, board: {0: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             1: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             2: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             3: {0: "green",1: "green",2: "green",3: "white",4: "black",5: "green",6: "green",7: "green",},
