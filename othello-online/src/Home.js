@@ -22,6 +22,7 @@ class Home extends Component {
       this.pushGameFields = this.pushGameFields.bind(this)
     }
 
+
     componentWillMount() {
         //fetch user data like current Game
 
@@ -42,6 +43,10 @@ class Home extends Component {
 
 
     }
+
+     sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+      }
 
     testfunction = () => {
         this.props.goToUrl(`/gameScreen`)
@@ -110,6 +115,9 @@ class Home extends Component {
 
     searchForGame = () => {
         //set searchingForGame to true to popup the loading symbol
+        this.sleep(Math.floor(Math.random *5)).then(() => {
+        
+        
             this.setState({searchingForGame: true});
             console.log("SEARCH FOR GAME TRIGGERED")
         //load the user into a queue in the database
@@ -146,6 +154,7 @@ class Home extends Component {
               
             }
           });
+        })
         
 
     }
