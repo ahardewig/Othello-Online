@@ -22,7 +22,6 @@ class Disc extends Component {
             })
         }
         
-
     }
 
     validCoord = (row, col) => {

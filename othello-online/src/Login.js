@@ -5,7 +5,6 @@ import { auth, google } from "./rebase.js"
 import googlepic from "./btn_google_signin_light_normal_web@2x.png"
 import "./Login.css"
 
-
 class Login extends Component {
     constructor() {
         super()
@@ -27,12 +26,11 @@ class Login extends Component {
 
     render = () => {
         return (
-
           <div className="container">
 
             <div>
                 <center><img className="othello" /></center>
-                <div className="subtitle">Login to play Othello with your friends!</div>
+                <div className="subtitle">Login to play Othello with people from around the world!</div>
 
                 <img alt={"Login"} onClick={this.signin} className="googleLogin" src={googlepic} ></img>
             </div>
