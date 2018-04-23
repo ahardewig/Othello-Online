@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import rebase from './rebase.js'
 import Disc from './Disc.js'
+import './GameBoard.css'
 
 class GameBoard extends Component {
     constructor(){
@@ -321,6 +322,12 @@ class GameBoard extends Component {
         return row
     }
 
+    getDummyDisc = () => {
+        return (
+            <button id="dummyCircle" style={{background: this.state.playerColor}}></button>
+        )
+    }
+
     renderStatusMessage = () => {
         if(this.state.boardSynced){
             if(this.state.game.piecesRemaining > 0 && this.state.game.winnerID !== ""){
@@ -333,7 +340,7 @@ class GameBoard extends Component {
                 if(this.state.game.colorsTurn === this.state.playerColor){
                     return (
                         <div>
-                            <h3>Game running. Your color: {this.state.playerColor}</h3>
+                            <h3>Game running. Your color: {this.state.playerColor} {this.getDummyDisc()}</h3>
                             <div>
                                 <h3>It's your turn!</h3>
                             </div>
@@ -342,7 +349,7 @@ class GameBoard extends Component {
                 } else {
                     return(
                         <div>
-                            <h3>Game running. Your color: {this.state.playerColor}</h3>
+                            <h3>Game running. Your color: {this.state.playerColor} {this.getDummyDisc()}</h3>
                             <div>
                                 <h3>Wait for your opponent to make their move.</h3>
                             </div>
