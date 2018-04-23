@@ -545,61 +545,26 @@ class GameBoard extends Component {
                         <Modal open={this.state.rulesModalOpen} onClose={this.onCloseRulesModal}>
                             <div>
                                 <h2>Othello Game Rules</h2>
-                                <h1>
+                                <h4>Overview</h4>
+                                <p>Othello is a strategy board game played between 2 players. One player plays black and the other white. The goal is to get the majority of discs on the board to be your color at the end of the game.</p><div></div>
+                                <h4>Setup</h4>
+                                <p>Each player gets 32 discs and black always starts the game. Then the game alternates between white and black until:</p><div></div>
+                                <ol>
+                                    <li>A player has no valid moves, and they must pass their turn and the opponent continues, or </li>
+                                    <li>There are no moves left to be made.</li>
+                                </ol>
+                                <h4>Play</h4>
+                                <p>A move is made by placing a disc of the player's color on the board in a position that "out-flanks" one or more of the opponent's discs.
+                                   A disc or row of discs is outflanked when it is surrounded at the ends by discs of the opposite color. A disc may outflank any number of discs in one or more rows in any direction (horizontal, vertical, diagonal).</p><div></div>
+                                <h4>Ending the Game</h4>
+                                <p>When it is no longer possible for either player to move, the game is over. The discs are now counted and the player with the majority of his or her color discs on the board is the winner. A tie is possible.</p>
 
-
-
-
-Othello is a strategy board game played between 2 players. One player plays black and the other white.
-The goal is to get the majority of colour discs on the board at the end of the game.
-
-Each player gets 32 discs and black always starts the game.
-
-Then the game alternates between white and black until:
-
-1) one player can not make a valid move to outflank the opponent.
-2) both players have no valid moves.
-3) When a player has no valid moves, he passes his turn and the opponent continues.
-
-A player can not voluntarily forfeit his turn.
-
-When both players can not make a valid move the game ends.
-
-
-Black always moves first.
-
-A move is made by placing a disc of the player's color on the board in a position that "out-flanks" one or more of the opponent's discs.
-
-A disc or row of discs is outflanked when it is surrounded at the ends by discs of the opposite color.
-
-A disc may outflank any number of discs in one or more rows in any direction (horizontal, vertical, diagonal).
-
-For example: a white piece is being placed on the board that creates a straight line made up of a white piece at either end and only black pieces in between.
-
-
-
-All the discs which are outflanked will be flipped, even if it is to the player's advantage not to flip them.
-
-Discs may only be outflanked as a direct result of a move and must fall in the direct line of the disc being played.
-
-If you can't outflank and flip at least one opposing disc, you must pass your turn. However, if a move is available to you, you can't forfeit your turn.
-
-Once a disc has been placed on a square, it can never be moved to another square later in the game.
-
-When a player runs out of discs, but still has opportunities to outflank an opposing disc, then the opponent must give the player a disc to use.
-
-
-When it is no longer possible for either player to move, the game is over.
-
-The discs are now counted and the player with the majority of his or her color discs on the board is the winner.
-
-A tie is possible.
-
-
-
-
-
-                                </h1>
+                                <h4>Example</h4>
+                                <p>A white piece is being placed on the board that creates a straight line made up of a white piece at either end and only black pieces in between.
+                                    All the discs which are outflanked will be flipped, even if it is to the player's advantage not to flip them.
+                                    If you can't outflank and flip at least one opposing disc, you must pass your turn.
+                                    Once a disc has been placed on a square, it can never be moved to another square later in the game.</p><div></div>
+                                
                             </div>
                         </Modal>
                     </div>
