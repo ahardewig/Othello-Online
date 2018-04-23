@@ -266,6 +266,7 @@ class Disc extends Component {
                 newState.game.colorsTurn = "white"
             }
             if(newState.game.piecesRemaining === 0){
+                newState.game.updateOpponent = true
                 this.props.setGameBoardState(newState)
                 this.props.declareWinner();
                 return
