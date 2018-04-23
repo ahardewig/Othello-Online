@@ -10,6 +10,7 @@ class GameBoard extends Component {
             game: { },
             boardSynced: false,
             playerColor: "",
+            winnerColor: "",
             validGrid: {
                 0: {0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false},
                 1: {0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false},
@@ -359,7 +360,7 @@ class GameBoard extends Component {
             } else {
                 return (
                     <div>
-                        <h3>Game finished.</h3>
+                        <h3>Game finished. Your color: {this.state.playerColor} {this.getDummyDisc()}</h3>
                     </div>
                 )
             }
@@ -374,28 +375,54 @@ class GameBoard extends Component {
 
     renderWinnerMessage = () => {
         if(this.state.boardSynced){
-            if (this.state.game.winnerID === ""){
-                return (
-                    <div></div>
-                )
-            } else if (this.state.game.winnerID === "Tie") {
-                return (
-                    <div>
-                        <h2>It was a tie!</h2>
-                    </div>
-                )
-            } else if (this.props.playerID === this.state.game.winnerID) {
-                return (
-                    <div>
-                        <h2>You won!</h2>
-                    </div>
-                )
+            if(this.state.game.piecesRemaining === 0){
+                if(this.state.winnerColor === ""){
+                    let determinedWinner
+                    let blackScore = 0
+                    let whiteScore = 0
+                    for(var i = 0; i < 8; i++) {
+                        for(var j = 0; j < 8; j++) {
+                            if(this.state.game.board[i][j] === "white"){
+                                whiteScore++
+                            } else {
+                                blackScore++
+                            }
+                        }
+                    }
+                    if(blackScore > whiteScore){
+                        determinedWinner = "black"
+                    } else if (whiteScore > blackScore) {
+                        determinedWinner = "white"
+                    } else {
+                        determinedWinner = "Tie"
+
+                    }
+                    let newState = { ...this.state }
+                    newState.winnerColor = determinedWinner
+                    this.setState(newState)
+                } else {
+                    if(this.state.winnerColor === this.state.playerColor){ //you won
+                        return (
+                            <div>
+                                <h2>You won!</h2>
+                            </div>
+                        )
+                    } else if (this.state.winnerColor === "Tie"){ //tie
+                        return (
+                            <div>
+                                <h2>It was a tie!</h2>
+                            </div>
+                        )
+                    } else { //you lost
+                        return (
+                            <div>
+                                <h2>You lost.</h2>
+                            </div>
+                        )
+                    }
+                }
             } else {
-                return (
-                    <div>
-                        <h2>You lost.</h2>
-                    </div>
-                )
+                return (<div></div>)
             }
         } else { //game not loaded
             return (
