@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import rebase from './rebase.js'
 import Disc from './Disc.js'
 import './GameBoard.css'
+import 'react-responsive-modal/lib/react-responsive-modal.css';
+import Modal from 'react-responsive-modal/lib/css';
 
 class GameBoard extends Component {
     constructor(){
@@ -11,6 +13,7 @@ class GameBoard extends Component {
             boardSynced: false,
             playerColor: "",
             winnerColor: "",
+            rulesModalOpen: false,
             validGrid: {
                 0: {0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false},
                 1: {0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false},
@@ -456,6 +459,14 @@ class GameBoard extends Component {
         }
     }
 
+    onOpenRulesModal = () => {
+        this.setState({ rulesModalOpen: true });
+    };
+
+    onCloseRulesModal = () => {
+        this.setState({ rulesModalOpen: false });
+    };
+
     render = () => {
         let rows = [];
         let gameStatus = this.renderStatusMessage();
@@ -520,6 +531,13 @@ class GameBoard extends Component {
                             backgroundColor: 'black'
 
                         }} onClick={this.goHome}>Home</button><br></br>
+                        <button onClick={this.onOpenRulesModal}>Game Rules</button>
+                        <Modal open={this.state.rulesModalOpen} onClose={this.onCloseRulesModal}>
+                            <div>
+                                <h2>Othello Game Rules</h2>
+                                <h1>INSERT RULES HERE</h1>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
             )
