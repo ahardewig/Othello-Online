@@ -22,9 +22,19 @@ class Home extends Component {
       this.pushGameFields = this.pushGameFields.bind(this)
     }
 
-
+    
     componentWillMount() {
         //fetch user data like current Game
+        console.log("HELLO")
+        // rebase.post(`test/`, {
+        //     data: {name: 'Tyler McGinnis', age: 25},
+        //     then(err){
+        //     }
+        //   });
+
+        // window.onbeforeunload = function(e) {
+    
+        // };
 
       
     }

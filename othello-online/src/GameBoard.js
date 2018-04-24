@@ -30,6 +30,7 @@ class GameBoard extends Component {
     componentWillMount = () => {
         //rebase.syncState(`games/${this.props.gameID}/board`, {
         // this.testFunc()
+        window.addEventListener('beforeunload', this.handleLeavePage.bind(this));
         rebase.syncState(`games/${this.props.gameID}`, { //TODO: change testingID to be a prop
             context: this,
             state: 'game',
@@ -47,6 +48,14 @@ class GameBoard extends Component {
             }
         })
         
+    }
+
+    componentWillUnmount = () => {
+        window.removeEventListener('beforeunload', this.handleLeavePage.bind(this));
+    }
+
+    handleLeavePage(e) {
+        this.forfeit()
     }
 
     // testFunc = () => { //add dummy data for testing
