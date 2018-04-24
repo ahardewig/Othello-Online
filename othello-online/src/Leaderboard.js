@@ -222,7 +222,15 @@ class App extends Component {
         return (
             <div className="Leaderboard">
             <p align="left">
-                <button onClick={this.goHome}>Home</button>
+                <button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                            }} onClick={this.goHome}>Home</button>
             </p>
         <p align="center">
         
@@ -236,12 +244,44 @@ class App extends Component {
             <text>Sort by</text>
         </p>
 
-        <button onClick={this.sortByWins}>Wins</button>
+        <button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
 
-        <button onClick={this.sortByLosses}>Losses</button>
+                            }} onClick={this.sortByWins}>Wins</button>
 
-        <button onClick={this.sortByTies}>Ties</button>
-        <button onClick={this.sortByTotalGames}>Total Games Played</button>
+        <button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                            }} onClick={this.sortByLosses}>Losses</button>
+
+        <button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                            }} onClick={this.sortByTies}>Ties</button>
+        <button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                            }} onClick={this.sortByTotalGames}>Total Games Played</button>
 
       </div>
         )

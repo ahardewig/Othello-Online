@@ -223,7 +223,15 @@ class Home extends Component {
             <p style={{"float":"left", "padding-left": "10px"}}>
                 Welcome {this.props.username}!
                 <br></br>
-                <button onClick={this.goToLeaderboard}>Leaderboard</button>
+                <button style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                            }} onClick={this.goToLeaderboard}>Leaderboard</button>
             </p>
             <p style={{"float":"right", "padding-right": "10px"}}>
                 Registered Users: {this.state.numRegisteredUsers}

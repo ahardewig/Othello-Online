@@ -823,7 +823,16 @@ class GameBoard extends Component {
                             backgroundColor: 'black'
 
                         }} hidden={!this.state.isGameOverCheck} onClick={this.goHome}>Home</button>
-                        <button hidden={this.state.isGameOverCheck} onClick={this.forfeit}>Forfeit</button>
+                        <button 
+                        style={{
+                            borderRadius: "500px",
+                            padding: '10px 50px',
+                            margin: '20px 0px',
+                            color: 'white',
+                            fontSize: '20px',
+                            backgroundColor: 'black'
+
+                            }}hidden={this.state.isGameOverCheck} onClick={this.forfeit}>Forfeit</button>
                         
                         <br></br>
                         <button 
