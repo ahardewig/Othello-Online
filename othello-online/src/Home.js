@@ -17,6 +17,7 @@ class Home extends Component {
       this.state = {
           searchingForGame: false,
           currentGame: "",
+          numRegisteredUsers: 0
 
       }
       this.pushGameFields = this.pushGameFields.bind(this)
@@ -35,6 +36,12 @@ class Home extends Component {
         // window.onbeforeunload = function(e) {
     
         // };
+        rebase.fetch(`users/`, {
+            context: this,
+            asArray: true
+          }).then(data => {
+            this.setState({numRegisteredUsers: data.length});
+          })
 
       
     }
@@ -213,10 +220,17 @@ class Home extends Component {
   render() {
     return (
       <div className="Home" style={{height: '100vh', width: '100%', background: 'white'}}>
-            <p align="left">
+            <p style={{"float":"left", "padding-left": "10px"}}>
                 Welcome {this.props.username}!
                 <br></br>
                 <button onClick={this.goToLeaderboard}>Leaderboard</button>
+            </p>
+            <p style={{"float":"right", "padding-right": "10px"}}>
+                Registered Users: {this.state.numRegisteredUsers}
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             </p>
             <br></br>
             <text> Num Wins: {this.props.numWins} </text><br></br>
