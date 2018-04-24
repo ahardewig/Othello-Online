@@ -21,7 +21,7 @@ class App extends Component {
         tieSorted: {
             
         },
-        winPercentSorted: {
+        totalGamesSorted: {
 
         },
 
@@ -64,20 +64,14 @@ class App extends Component {
           return 0;
       }
 
-      compareWinPercentage(a, b) {
+      compareTotalGames(a, b) {
         var totalA = a.numLosses + a.numWins + a.numTies
         var totalB = b.numLosses + b.numWins + b.numTies
-          if ((a.numWins/totalA) > (b.numWins/totalB)) {
+          if (totalA > totalB) {
             return -1;
           }
-          if ((a.numWins/totalA) < (b.numWins/totalB)) {
+          if (totalA < totalB) {
             return 1;
-          }
-          if (a.numWins > b.numWins){
-              return -1
-          }
-          if (a.numWins < b.numWins){
-              return 1;
           }
           // a must be equal to b
           return 0;
@@ -133,13 +127,13 @@ class App extends Component {
           })
     }
 
-    sortByWinPercentage = () => {
+    sortByTotalGames = () => {
         rebase.fetch(`users/`, {
             context: this,
             asArray: true
           }).then(data => {
-             data.sort(this.compareWinPercentage)
-             this.setState({winPercentSorted: data});
+             data.sort(this.compareTotalGames)
+             this.setState({totalGamesSorted: data});
              this.setState({selected: 3});
           })
 
@@ -197,9 +191,9 @@ class App extends Component {
         }
         else if (this.state.selected == 3){
             return (
-                (Object.values(this.state.tieSorted)).map((users, index) => (
+                (Object.values(this.state.totalGamesSorted)).map((users, index) => (
                     <span>
-                        {(index+1) + "------" + users.displayName + "======" + (users.numWins/(users.numWins+users.numLosses+users.numTies))}
+                        {(index+1) + "------" + users.displayName + "======" + ((users.numWins+users.numLosses+users.numTies))}
                         <br></br>
                     </span>
                 ))
@@ -214,8 +208,11 @@ class App extends Component {
         else if (this.state.selected == 1){
             return "Losses"
         }
-        else {
+        else if (this.state.selected == 2) {
             return "Ties"
+        }
+        else {
+            return "Total Games"
         }
     }
 
@@ -244,6 +241,7 @@ class App extends Component {
         <button onClick={this.sortByLosses}>Losses</button>
 
         <button onClick={this.sortByTies}>Ties</button>
+        <button onClick={this.sortByTotalGames}>Total Games Played</button>
 
       </div>
         )
