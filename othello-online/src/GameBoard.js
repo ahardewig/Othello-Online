@@ -27,9 +27,29 @@ class GameBoard extends Component {
             isGameOverCheck: false
         }
     }
-    componentWillMount = () => {
+    componentDidUpdate = () => {
+        console.log("did update")
+        if (this.state.updateOpponent == true){
+            console.log("opponent updating")
+            this.setState({isGameOverCheck: true});
+        }
+    }
+    componentWillReceiveProps = () => {
+        console.log("did receive props")
+        console.log(this.state)
+        if (this.state.playerColor === "white"){
+            //console.log("opponent updating")
+            this.setState({isGameOverCheck: true});
+        }
+    }
+     componentWillMount = () => {
         //rebase.syncState(`games/${this.props.gameID}/board`, {
         // this.testFunc()
+        console.log("TESTING: " + this.state)
+        if (this.state.updateOpponent == true){
+            console.log("opponent updating")
+            this.setState({isGameOverCheck: true});
+        }
         window.addEventListener('beforeunload', this.handleLeavePage.bind(this));
         rebase.syncState(`games/${this.props.gameID}`, { //TODO: change testingID to be a prop
             context: this,
@@ -44,7 +64,7 @@ class GameBoard extends Component {
                 }
                 this.setState(newState)
                 this.updateValidGrid()
-                this.isGameOver()
+                //this.isGameOver()
             }
         })
         
@@ -56,8 +76,12 @@ class GameBoard extends Component {
 
     handleLeavePage(e) {
         this.forfeit()
+        this.clearGame()
     }
 
+    clearGame = () => {
+        rebase.remove(`games/${this.props.gameID}`)
+    }
     // testFunc = () => { //add dummy data for testing
     //     rebase.post(`games/testingID/board`, {
     //         data: {
@@ -92,6 +116,7 @@ class GameBoard extends Component {
                 }
             }
         }
+        
         if(blackScore > whiteScore){ //Black wins
             // const newState = { ...this.state }
             // newState.game.winnerID = this.state.game.blackPlayerID
@@ -192,6 +217,7 @@ class GameBoard extends Component {
                 }
             })
         }
+        this.setState({isGameOverCheck: true});
     }
 
 
@@ -204,11 +230,12 @@ class GameBoard extends Component {
             for(var j = 0; j < 8; j++) {
                 if(this.state.game.board[i][j] === "white"){
                     whiteScore++
-                } else {
+                } else if (this.state.game.board[i][j] === "black") {
                     blackScore++
                 }
             }
         }
+        console.log(blackScore+whiteScore)
         if (blackScore+whiteScore == 64){
             this.setState({isGameOverCheck: true});
             return true
@@ -223,6 +250,7 @@ class GameBoard extends Component {
         let newState = { ...this.state }
         newState.game.board[row][col] = color
         this.setState(newState)
+        // this.isGameOver()
     }
 
     updateValidGrid = () => {
@@ -474,11 +502,69 @@ class GameBoard extends Component {
 
     goHome = () => {
         console.log(this.props)
+
+        if (this.state.playerColor === "white"){
+            
+            rebase.fetch(`users/${this.state.game.blackPlayerID}/currentGame`, {
+                context: this,
+                then(data){
+                    if (data !== this.props.gameID){
+                        rebase.update(`users/${this.props.playerID}`, {
+                            data: {currentGame: ''},
+                            then(err){
+                            }
+                        });
+                        this.clearGame()
+                        this.props.goToUrl("/home")
+                    }
+                    else {
+                        rebase.update(`users/${this.props.playerID}`, {
+                            data: {currentGame: ''},
+                            then(err){
+                            }
+                        });
+                        this.props.goToUrl("/home")
+
+                    }
+                }
+            })
+        }
+        else {
+            rebase.fetch(`users/${this.state.game.whitePlayerID}/numWins`, {
+                context: this,
+                then(data){
+                    if (data !== this.props.gameID){
+                        rebase.update(`users/${this.props.playerID}`, {
+                            data: {currentGame: ''},
+                            then(err){
+                            }
+                        });
+                        this.clearGame()
+                        this.props.goToUrl("/home")
+                    }
+                    else {
+                        rebase.update(`users/${this.props.playerID}`, {
+                            data: {currentGame: ''},
+                            then(err){
+                            }
+                        });
+                        this.props.goToUrl("/home")
+                    }
+                }
+            })
+        }
+
+
+
+
+        
         rebase.update(`users/${this.props.playerID}`, {
             data: {currentGame: ''},
             then(err){
             }
+            
         });
+        this.props.goToUrl("/home")
     }
 
     getOpponentName = () => {
@@ -558,13 +644,16 @@ class GameBoard extends Component {
             rebase.update(`users/${this.state.game.whitePlayerID}`, {
                 data: {currentGame: ''},
                 then(err){
+                    //this.props.goToUrl("/home")
                 }
             });
             rebase.update(`users/${this.state.game.blackPlayerID}`, {
                 data: {currentGame: ''},
                 then(err){
+                    // this.props.goToUrl("/home")
                 }
             });
+            this.props.goToUrl("/home")
         }
         else {
 
@@ -601,15 +690,19 @@ class GameBoard extends Component {
             rebase.update(`users/${this.state.game.whitePlayerID}`, {
                 data: {currentGame: ''},
                 then(err){
+                    // this.props.goToUrl("/home")
                 }
             });
             rebase.update(`users/${this.state.game.blackPlayerID}`, {
                 data: {currentGame: ''},
                 then(err){
+                    // this.props.goToUrl("/home")
                 }
             });
+            this.props.goToUrl("/home")
 
         }
+        this.clearGame()
     }
 
     passMove = () => {
@@ -645,6 +738,7 @@ class GameBoard extends Component {
                 newState.game.updateOpponent = false
                 this.setState(newState)
                 this.updateValidGrid()
+                //this.isGameOver()
             }
             for(var i = 0; i < 8; i++){
                 rows.push(<div>{this.renderRow(i)}</div>)
@@ -728,8 +822,8 @@ class GameBoard extends Component {
                             fontSize: '20px',
                             backgroundColor: 'black'
 
-                        }} hidden={this.state.isGameOverCheck} onClick={this.goHome}>Home</button>
-                        <button hidden={!this.state.isGameOverCheck} onClick={this.forfeit}>Forfeit</button>
+                        }} hidden={!this.state.isGameOverCheck} onClick={this.goHome}>Home</button>
+                        <button hidden={this.state.isGameOverCheck} onClick={this.forfeit}>Forfeit</button>
                         
                         <br></br>
                         <button 

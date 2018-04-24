@@ -268,6 +268,8 @@ class Disc extends Component {
                 newState.game.updateOpponent = true
                 this.props.setGameBoardState(newState)
                 this.props.declareWinner();
+                //this.setState({isGameOverCheck: true});
+                this.props.setGameBoardState({isGameOverCheck: true})
                 return
             }
             // if(!this.playerHasMove(newState.game.colorsTurn)){  //Make sure that the opponent has a valid move. If not, skip their turn.
@@ -279,8 +281,6 @@ class Disc extends Component {
             //     }
             // }
             newState.game.updateOpponent = true
-
-            this.props.setGameBoardState(newState)
         } else { //Not a valid move
             return
             //Add error or something?
