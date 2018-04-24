@@ -157,6 +157,64 @@ class App extends Component {
         console.log(this.props.goToUrl("/home"))
     }
 
+    returnMyRank = () => {
+        console.log(this.state.selected)
+        var winArr = Object.values(this.state.winSorted)
+        //console.log(this.props.username)
+        var winIndex = winArr.findIndex(user => user.displayName === this.props.username)
+        //console.log(winIndex)
+
+         var lossArr = Object.values(this.state.lossSorted)
+         var lossIndex = lossArr.findIndex(user => user.displayName === this.props.username)
+
+         var tieArr = Object.values(this.state.tieSorted)
+         var tieIndex = tieArr.findIndex(user => user.displayName === this.props.username)
+
+         var totalSorted = Object.values(this.state.totalGamesSorted)
+         var totalIndex = totalSorted.findIndex(user => user.displayName === this.props.username)
+        if (this.state.selected == 0 && winIndex != -1 ){
+            
+            return (
+                    <span style={{"text-align": "left", "font-weight": "bold"}}>
+                        {(winIndex+1) + "------" + this.props.username + " (" + this.props.numWins + ")"}
+                        <br></br>
+                    </span>
+                
+
+            )
+        }
+        else if (this.state.selected == 1 && lossIndex != -1){
+            return (
+                
+                    <span style={{"text-align": "left", "font-weight": "bold"}}>
+                        {(lossIndex+1) + "------" + this.props.username + " (" + this.props.numLosses + ")"}
+                        <br></br>
+                    </span>
+            
+            )
+        }
+        else if (this.state.selected == 2 && tieIndex != -1){
+            return (
+                
+                    <span style={{"text-align": "left", "font-weight": "bold"}}>
+                        {(tieIndex+1) + "------" + this.props.username + " (" + this.props.numTies + ")"}
+                        <br></br>
+                    </span>
+            
+            )
+        }
+        else if (this.state.selected == 3 && totalIndex != -1){
+            return (
+        
+                    <span style={{"text-align": "left", "font-weight": "bold"}}>
+                        {(totalIndex+1) + "------" + this.props.username + " (" + ((this.props.numWins+this.props.numLosses+this.props.numTies)) + ")"}
+                        <br></br>
+                    </span>
+            
+            )
+        }
+    }
+
     returnSortedRender = () => {
         console.log(this.state.selected)
         var winArr = Object.values(this.state.winSorted).slice(0,10);
@@ -246,6 +304,8 @@ class App extends Component {
             <div style={{"text-align":"center"}}>
             <div style={{"display":"inline-block", "text-align": "left"}}>
                 {this.returnSortedRender()}
+                <br></br><br></br>
+                {this.returnMyRank()}
             </div>
             </div>
             <br></br>

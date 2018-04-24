@@ -88,7 +88,7 @@ class App extends Component {
       <Switch>
 
          <Route path="/leaderboard" render={() => {
-                return <Leaderboard playerID={this.state.user.uid} goToUrl={this.goToUrl} getAppState={this.getAppState} username = {this.state.user.displayName}/>
+                return <Leaderboard numWins={this.state.user.numWins} numLosses={this.state.user.numLosses} numTies={this.state.user.numTies} playerID={this.state.user.uid} goToUrl={this.goToUrl} getAppState={this.getAppState} username = {this.state.user.displayName}/>
             }} />
         <Route path="/" render={() => {
           if (!isObjectEmpty(this.state.user) ){

@@ -244,11 +244,11 @@ class Home extends Component {
             <text> Num Wins: {this.props.numWins} </text><br></br>
             <text> Num Losses: {this.props.numLosses} </text><br></br>
             <text> Num Ties: {this.props.numTies} </text><br></br>
-            <br></br><br></br><br></br>
+            <br></br><br></br><br></br><br></br>
             <text style={{background: 'white', color: 'black', size: '20'}}>Welcome to Othello-Online!</text>
             <br></br>
             <center><img alt={"Othello-Picture"} className="Othello" src={OthelloPicture} /></center>
-            <br></br><br></br><br></br><br></br><br></br><br></br>
+            <br></br><br></br><br></br><br></br>
             
             <br></br><button style={{
                 borderRadius: "500px",
@@ -262,7 +262,7 @@ class Home extends Component {
             <br></br><button 
             style={{
                 borderRadius: "500px",
-                padding: '10px 50px',
+                padding: '30px 60px',
                 color: 'white',
                 backgroundColor: 'black',
                 fontSize: '20px'
@@ -273,7 +273,15 @@ class Home extends Component {
                 <ReactLoading type={"spokes"} color="#000000" height={20} width={parseInt(this.loadingSymbolToggle())} />
             </p>
             <p align="left">
-                <br></br><button style={{background: 'none', border: 'none', 'font-size': '20px', 'margin-top': '10px', 'position':'absolute', 'padding-bottom': '20px'}} onClick={this.logout}>Logout</button><br></br>
+                <br></br><button style={{
+                borderRadius: "500px",
+                padding: '10px 50px',
+                color: 'white',
+                backgroundColor: 'black',
+                fontSize: '20px',
+                "margin-top": '-30px',
+
+            }} onClick={this.logout}>Logout</button><br></br>
                 
             </p>
       </div>
