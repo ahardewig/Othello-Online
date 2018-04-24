@@ -159,21 +159,27 @@ class App extends Component {
 
     returnSortedRender = () => {
         console.log(this.state.selected)
+        var winArr = Object.values(this.state.winSorted).slice(0,10);
+            var lossArr = Object.values(this.state.lossSorted).slice(0,10);
+            var tieArr = Object.values(this.state.tieSorted).slice(0,10);
+            var totalSorted = Object.values(this.state.totalGamesSorted).slice(0,10);
         if (this.state.selected == 0){
+            
             return (
-                (Object.values(this.state.winSorted)).map((users, index) => (
+                (Object.values(winArr)).map((users, index) => (
                     <span style={{"text-align": "left"}}>
                         {(index+1) + "------" + users.displayName + " (" + users.numWins + ")"}
                         <br></br>
                     </span>
                 ))
+
             )
         }
         else if (this.state.selected == 1){
             return (
-                (Object.values(this.state.lossSorted)).map((users, index) => (
+                (Object.values(lossArr)).map((users, index) => (
                     <span>
-                        {(index+1) + "------" + users.displayName + "======" + users.numLosses}
+                        {(index+1) + "------" + users.displayName + " (" + users.numLosses + ")"}
                         <br></br>
                     </span>
                 ))
@@ -181,9 +187,9 @@ class App extends Component {
         }
         else if (this.state.selected == 2){
             return (
-                (Object.values(this.state.tieSorted)).map((users, index) => (
+                (Object.values(tieArr)).map((users, index) => (
                     <span>
-                        {(index+1) + "------" + users.displayName + "======" + users.numTies}
+                        {(index+1) + "------" + users.displayName + " (" + users.numTies + ")"}
                         <br></br>
                     </span>
                 ))
@@ -191,9 +197,9 @@ class App extends Component {
         }
         else if (this.state.selected == 3){
             return (
-                (Object.values(this.state.totalGamesSorted)).map((users, index) => (
+                (Object.values(totalSorted)).map((users, index) => (
                     <span>
-                        {(index+1) + "------" + users.displayName + "======" + ((users.numWins+users.numLosses+users.numTies))}
+                        {(index+1) + "------" + users.displayName + " (" + ((users.numWins+users.numLosses+users.numTies)) + ")"}
                         <br></br>
                     </span>
                 ))
