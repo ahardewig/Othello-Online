@@ -778,7 +778,7 @@ class GameBoard extends Component {
                         <br></br>
                         TIES: {this.props.numTies}
                         <br></br>
-                        TOTAL GAMES PLAYED: {this.getOpponentTotalGames()}
+                        TOTAL GAMES PLAYED: {this.props.numWins+this.props.numLosses+this.props.numTies}
 
                     </p>
                     <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
