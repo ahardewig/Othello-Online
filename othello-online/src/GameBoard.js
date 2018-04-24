@@ -473,16 +473,46 @@ class GameBoard extends Component {
     }
 
     getOpponentName = () => {
-        //console.log(this.state)
         if (this.state.playerColor === "white"){
             return this.state.game.blackPlayerName
         }
         else {
             return this.state.game.whitePlayerName
         }
-
-
     }
+    getOpponentWins = () => {
+        if (this.state.playerColor === "white"){
+            return this.state.game.numWinsWhite
+        }
+        else {
+            return this.state.game.numWinsBlack
+
+        }
+    }
+    getOpponentTies = () => {
+        if (this.state.playerColor === "white"){
+            return this.state.game.numTiesWhite
+        }
+        else {
+            return this.state.game.numTiesBlack
+
+        }
+    }
+    getOpponentLosses = () => {
+        if (this.state.playerColor === "white"){
+            return this.state.game.numLossesWhite
+        }
+        else {
+            return this.state.game.numLossesBlack
+
+        }
+    }
+    getOpponentTotalGames = () => {
+        return (this.getOpponentLosses() + this.getOpponentTies() + this.getOpponentWins())
+    }
+    
+
+
     forfeit = () => {
         console.log(this.props)
 
@@ -622,10 +652,34 @@ class GameBoard extends Component {
                          }}
                         >Othello {this.state.game.board.testvalue}
                     </p>
-                    <p> 
+                
+                    
+                    <p style={{"float":"right", "padding-right": "50px"}} > 
                         OPPONENT:  {this.getOpponentName()}
+                        <br></br>
+                        WINS:   {this.getOpponentWins()}
+                        <br></br>
+                        LOSSES: {this.getOpponentLosses()}
+                        <br></br>
+                        TIES: {this.getOpponentTies()}
+                        <br></br>
+                        TOTAL GAMES PLAYED: {this.getOpponentTotalGames()}
 
                     </p>
+                    <p style={{"float":"left", "padding-left": "50px"}} > 
+                        USER:  {this.props.username}
+                        <br></br>
+                        WINS:   {this.props.numWins}
+                        <br></br>
+                        LOSSES: {this.props.numLosses}
+                        <br></br>
+                        TIES: {this.props.numTies}
+                        <br></br>
+                        TOTAL GAMES PLAYED: {this.getOpponentTotalGames()}
+
+                    </p>
+                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                    
                     </div>
 
                     <div>

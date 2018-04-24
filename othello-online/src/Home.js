@@ -54,16 +54,16 @@ class Home extends Component {
 
     addUsertoQueue = () => {
         rebase.push(`queue`, {
-            data: {username: this.props.username, uid: this.props.playerID},
+            data: {username: this.props.username, uid: this.props.playerID, numWins: this.props.numWins, numLosses: this.props.numLosses, numTies: this.props.numTies},
           })
             
     }
 
-    pushGameFields = (first, second, firstName, secondName) => {
+    pushGameFields = (first, second, firstName, secondName, secondWins, secondLosses, secondTies, firstWins, firstLosses, firstTies) => {
         //black player is first, 
         //inputs are keys
         var key = rebase.push(`games`, {
-            data: {blackPlayerName: firstName, whitePlayerName: secondName, piecesRemaining: 60, winnerID: "", blackPlayerID: first, updateOpponent: false, board: {0: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            data: {numWinsWhite: firstWins, numLossesWhite: firstLosses, numTiesWhite: firstTies, numWinsBlack: secondWins, numLossesBlack: secondLosses, numTiesBlack: secondTies, blackPlayerName: firstName, whitePlayerName: secondName, piecesRemaining: 60, winnerID: "", blackPlayerID: first, updateOpponent: false, board: {0: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             1: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             2: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             3: {0: "green",1: "green",2: "green",3: "white",4: "black",5: "green",6: "green",7: "green",},
@@ -134,7 +134,7 @@ class Home extends Component {
                     this.setState({searchingForGame: false});
                     //current user is second player, so start the game
                     console.log(data[0])
-                    this.pushGameFields(this.props.playerID,data[0].uid, this.props.username, data[0].username)
+                    this.pushGameFields(this.props.playerID,data[0].uid, this.props.username, data[0].username, data[0].numWins, data[0].numLosses, data[0].numTies, this.props.numWins, this.props.numLosses, this.props.numTies)
 
                     
                 }

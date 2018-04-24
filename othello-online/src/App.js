@@ -99,7 +99,7 @@ class App extends Component {
               //   data: {currentGame: this.state.user.currentGame}
               // }).then(() => {
                 console.log("showing Gameboard")
-                return <GameBoard playerID={this.state.user.uid} gameID={this.state.user.currentGame} goToUrl={this.goToUrl} getAppState={this.getAppState}/>
+                return <GameBoard username = {this.state.user.displayName} numWins={this.state.user.numWins} numLosses={this.state.user.numLosses} numTies={this.state.user.numTies} playerID={this.state.user.uid} gameID={this.state.user.currentGame} goToUrl={this.goToUrl} getAppState={this.getAppState}/>
               //})
             }
             else {
