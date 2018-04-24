@@ -23,7 +23,8 @@ class GameBoard extends Component {
                 5: {0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false},
                 6: {0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false},
                 7: {0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false},
-            }
+            },
+            isGameOverCheck: false
         }
     }
     componentWillMount = () => {
@@ -42,8 +43,10 @@ class GameBoard extends Component {
                 }
                 this.setState(newState)
                 this.updateValidGrid()
+                this.isGameOver()
             }
         })
+        
     }
 
     // testFunc = () => { //add dummy data for testing
@@ -198,7 +201,9 @@ class GameBoard extends Component {
             }
         }
         if (blackScore+whiteScore == 64){
+            this.setState({isGameOverCheck: true});
             return true
+
         }
         else {
             return false
@@ -467,6 +472,17 @@ class GameBoard extends Component {
         });
     }
 
+    getOpponentName = () => {
+        //console.log(this.state)
+        if (this.state.playerColor === "white"){
+            return this.state.game.blackPlayerName
+        }
+        else {
+            return this.state.game.whitePlayerName
+        }
+
+
+    }
     forfeit = () => {
         console.log(this.props)
 
@@ -606,6 +622,10 @@ class GameBoard extends Component {
                          }}
                         >Othello {this.state.game.board.testvalue}
                     </p>
+                    <p> 
+                        OPPONENT:  {this.getOpponentName()}
+
+                    </p>
                     </div>
 
                     <div>
@@ -645,8 +665,8 @@ class GameBoard extends Component {
                             fontSize: '20px',
                             backgroundColor: 'black'
 
-                        }} hidden={!this.isGameOver} onClick={this.goHome}>Home</button>
-                        <button hidden={this.isGameOver} onClick={this.forfeit}>Forfeit</button>
+                        }} hidden={this.state.isGameOverCheck} onClick={this.goHome}>Home</button>
+                        <button hidden={!this.state.isGameOverCheck} onClick={this.forfeit}>Forfeit</button>
                         
                         <br></br>
                         <button 

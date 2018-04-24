@@ -59,11 +59,11 @@ class Home extends Component {
             
     }
 
-    pushGameFields = (first, second) => {
+    pushGameFields = (first, second, firstName, secondName) => {
         //black player is first, 
         //inputs are keys
         var key = rebase.push(`games`, {
-            data: {piecesRemaining: 60, winnerID: "", blackPlayerID: first, updateOpponent: false, board: {0: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
+            data: {blackPlayerName: firstName, whitePlayerName: secondName, piecesRemaining: 60, winnerID: "", blackPlayerID: first, updateOpponent: false, board: {0: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             1: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             2: {0: "green",1: "green",2: "green",3: "green",4: "green",5: "green",6: "green",7: "green",},
             3: {0: "green",1: "green",2: "green",3: "white",4: "black",5: "green",6: "green",7: "green",},
@@ -133,7 +133,8 @@ class Home extends Component {
                     this.removeUserFromQueue(data[0].uid)
                     this.setState({searchingForGame: false});
                     //current user is second player, so start the game
-                    this.pushGameFields(this.props.playerID,data[0].uid)
+                    console.log(data[0])
+                    this.pushGameFields(this.props.playerID,data[0].uid, this.props.username, data[0].username)
 
                     
                 }
