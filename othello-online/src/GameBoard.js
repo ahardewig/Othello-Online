@@ -182,6 +182,29 @@ class GameBoard extends Component {
         }
     }
 
+
+
+
+    isGameOver = () => {
+        let blackScore = 0
+        let whiteScore = 0
+        for(var i = 0; i < 8; i++) {
+            for(var j = 0; j < 8; j++) {
+                if(this.state.game.board[i][j] === "white"){
+                    whiteScore++
+                } else {
+                    blackScore++
+                }
+            }
+        }
+        if (blackScore+whiteScore == 64){
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
     changeDiscColor = (row, col, color) => {
         let newState = { ...this.state }
         newState.game.board[row][col] = color
@@ -444,6 +467,96 @@ class GameBoard extends Component {
         });
     }
 
+    forfeit = () => {
+        console.log(this.props)
+
+        if (this.state.playerColor === "white"){
+            rebase.update(`games/${this.props.gameID}`, {
+                data: {
+                    winnerID: this.state.game.blackPlayerID
+                }
+            })
+            rebase.fetch(`users/${this.state.game.blackPlayerID}/numWins`, {
+                context: this,
+                then(data){
+                    let newNumWins = data;
+                    newNumWins++;
+                    rebase.update(`users/${this.state.game.blackPlayerID}`, {
+                        data: {
+                            numWins: newNumWins,
+                        }
+                    })
+                }
+            })
+            rebase.fetch(`users/${this.state.game.whitePlayerID}/numLosses`, {
+                context: this,
+                then(data){
+                    let newNumLosses = data;
+                    newNumLosses++;
+                    rebase.update(`users/${this.state.game.whitePlayerID}`, {
+                        data: {
+                            numLosses: newNumLosses,
+                        }
+                    })
+                }
+            })
+            rebase.update(`users/${this.state.game.whitePlayerID}`, {
+                data: {currentGame: ''},
+                then(err){
+                }
+            });
+            rebase.update(`users/${this.state.game.blackPlayerID}`, {
+                data: {currentGame: ''},
+                then(err){
+                }
+            });
+        }
+        else {
+
+            rebase.update(`games/${this.props.gameID}`, {
+                data: {
+                    winnerID: this.state.game.whitePlayerID
+                }
+            })
+            rebase.fetch(`users/${this.state.game.whitePlayerID}/numWins`, {
+                context: this,
+                then(data){
+                    let newNumWins = data;
+                    newNumWins++;
+                    rebase.update(`users/${this.state.game.whitePlayerID}`, {
+                        data: {
+                            numWins: newNumWins,
+                        }
+                    })
+                }
+            })
+            rebase.fetch(`users/${this.state.game.blackPlayerID}/numLosses`, {
+                context: this,
+                then(data){
+                    let newNumLosses = data;
+                    newNumLosses++;
+                    rebase.update(`users/${this.state.game.blackPlayerID}`, {
+                        data: {
+                            numLosses: newNumLosses,
+                        }
+                    })
+                }
+            })
+
+            rebase.update(`users/${this.state.game.whitePlayerID}`, {
+                data: {currentGame: ''},
+                then(err){
+                }
+            });
+            rebase.update(`users/${this.state.game.blackPlayerID}`, {
+                data: {currentGame: ''},
+                then(err){
+                }
+            });
+
+        }
+    }
+
     passMove = () => {
         if(this.state.playerColor !== this.state.game.colorsTurn || this.state.game.piecesRemaining === 0){
             return
@@ -522,7 +635,9 @@ class GameBoard extends Component {
                         {gameStatus}
                         {resultMessage}
 
-                    <div><br></br><button style={{
+                    <div><br></br>
+                    
+                    <button style={{
                             borderRadius: "500px",
                             padding: '10px 50px',
                             margin: '20px 0px',
@@ -530,7 +645,10 @@ class GameBoard extends Component {
                             fontSize: '20px',
                             backgroundColor: 'black'
 
-                        }} onClick={this.goHome}>Home</button><br></br>
+                        }} hidden={!this.isGameOver} onClick={this.goHome}>Home</button>
+                        <button hidden={this.isGameOver} onClick={this.forfeit}>Forfeit</button>
+                        
+                        <br></br>
                         <button 
                         style={{
                             borderRadius: "500px",
