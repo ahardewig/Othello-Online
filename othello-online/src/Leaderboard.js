@@ -162,8 +162,8 @@ class App extends Component {
         if (this.state.selected == 0){
             return (
                 (Object.values(this.state.winSorted)).map((users, index) => (
-                    <span>
-                        {(index+1) + "------" + users.displayName + "======" + users.numWins}
+                    <span style={{"text-align": "left"}}>
+                        {(index+1) + "------" + users.displayName + " (" + users.numWins + ")"}
                         <br></br>
                     </span>
                 ))
@@ -234,14 +234,16 @@ class App extends Component {
             </p>
         <p align="center">
         
-            {this.props.username}
             <br></br><br></br><br></br>
-            <text>LeaderBoard (</text>{this.displaySortedParameter()}<text>)</text>
-            <ol style={{"text-align":"center", "list-style-position":"inside"}}>
-
+            <h2><text>LeaderBoard (</text>{this.displaySortedParameter()}<text>)</text></h2>
+            <br></br>
+            <div style={{"text-align":"center"}}>
+            <div style={{"display":"inline-block", "text-align": "left"}}>
                 {this.returnSortedRender()}
-            </ol>
-            <text>Sort by</text>
+            </div>
+            </div>
+            <br></br>
+            <h3>Sort by:</h3>
         </p>
 
         <button style={{
