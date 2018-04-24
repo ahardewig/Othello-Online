@@ -3,10 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import GameBoard from './GameBoard.js'
 import rebase, { auth } from "./rebase.js"
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, Router } from "react-router-dom";
 import { isObjectEmpty, buildUserFromGoogle } from "./apphelpers.js"
 import Login from "./Login.js"
 import Home from "./Home.js"
+import Leaderboard from "./Leaderboard.js"
 
 class App extends Component {
 
@@ -83,7 +84,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      
       <Switch>
+
+         <Route path="/leaderboard" render={() => {
+                return <Leaderboard playerID={this.state.user.uid} goToUrl={this.goToUrl} getAppState={this.getAppState} username = {this.state.user.displayName}/>
+            }} />
         <Route path="/" render={() => {
           if (!isObjectEmpty(this.state.user) ){
             console.log(this.state.user)
@@ -109,6 +115,10 @@ class App extends Component {
 
             <Route path="/gameScreen" render={() => {
                 return <GameBoard playerID={this.state.user.uid} gameID={this.state.currentGame} goToUrl={this.props.goToUrl} getAppState={this.props.getAppState}/>
+            }} />
+           
+            <Route path="/home" render={() => {
+                return <Home numWins={this.state.user.numWins} numLosses={this.state.user.numLosses} numTies={this.state.user.numTies} username = {this.state.user.displayName} playerID={this.state.user.uid} getAppState={this.getAppState} setAppState={this.setAppState} goToUrl={this.goToUrl}/>
             }} />
 
 

@@ -193,13 +193,19 @@ class Home extends Component {
         auth.signOut()
     }
 
+    goToLeaderboard = () => {
+         console.log("going to leaderboard")
+        this.props.goToUrl("/leaderboard")
+    }
+
 
   render() {
     return (
       <div className="Home" style={{height: '100vh', width: '100%', background: 'white'}}>
             <p align="left">
                 Welcome {this.props.username}!
-                
+                <br></br>
+                <button onClick={this.goToLeaderboard}>Leaderboard</button>
             </p>
             <br></br>
             <text> Num Wins: {this.props.numWins} </text><br></br>
@@ -219,7 +225,7 @@ class Home extends Component {
                 fontSize: '20px'
 
             }}
-            onClick={this.searchForGame}>Search for a game</button><br></br>
+            hidden={this.state.searchingForGame} onClick={this.searchForGame}>Search for a game</button><br></br>
             <br></br><button 
             style={{
                 borderRadius: "500px",
