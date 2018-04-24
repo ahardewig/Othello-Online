@@ -273,7 +273,7 @@ class Home extends Component {
                 <ReactLoading type={"spokes"} color="#000000" height={20} width={parseInt(this.loadingSymbolToggle())} />
             </p>
             <p align="left">
-                <br></br><button style={{background: 'none', border: 'none', 'font-size': '20px', 'margin-top': '100px', 'position':'absolute', 'padding-bottom': '20px'}} onClick={this.logout}>Logout</button><br></br>
+                <br></br><button style={{background: 'none', border: 'none', 'font-size': '20px', 'margin-top': '10px', 'position':'absolute', 'padding-bottom': '20px'}} onClick={this.logout}>Logout</button><br></br>
                 
             </p>
       </div>
