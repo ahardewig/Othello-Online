@@ -207,6 +207,18 @@ class App extends Component {
         }
     }
 
+    displaySortedParameter = () => {
+        if (this.state.selected == 0){
+            return "Wins"
+        }
+        else if (this.state.selected == 1){
+            return "Losses"
+        }
+        else {
+            return "Ties"
+        }
+    }
+
 
     firstScreen = () => {
 
@@ -219,7 +231,7 @@ class App extends Component {
         
             {this.props.username}
             <br></br><br></br><br></br>
-            <text>LeaderBoard</text>
+            <text>LeaderBoard (</text>{this.displaySortedParameter()}<text>)</text>
             <ol style={{"text-align":"center", "list-style-position":"inside"}}>
 
                 {this.returnSortedRender()}
