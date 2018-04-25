@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Othello-Online",
+  "name": "Play Othello with your friends!",
   "icons": [
     {
       "src": "favicon.ico",
