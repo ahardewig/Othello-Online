@@ -27,29 +27,32 @@ class GameBoard extends Component {
             isGameOverCheck: false
         }
     }
+    propCount = 0;
     componentDidUpdate = () => {
         console.log("did update")
-        if (this.state.updateOpponent == true){
-            console.log("opponent updating")
-            this.setState({isGameOverCheck: true});
-        }
+        // if (this.state.updateOpponent == true){
+        //     console.log("opponent updating")
+        //     this.setState({isGameOverCheck: true});
+        // }
     }
     componentWillReceiveProps = () => {
         console.log("did receive props")
         console.log(this.state)
-        if (this.state.playerColor === "white"){
+        this.propCount++;
+        if (this.state.playerColor === "black" || (this.state.playerColor === "white" && this.propCount == 2)){
             //console.log("opponent updating")
             this.setState({isGameOverCheck: true});
         }
     }
      componentWillMount = () => {
+         this.propCount = 0;
         //rebase.syncState(`games/${this.props.gameID}/board`, {
         // this.testFunc()
         console.log("TESTING: " + this.state)
-        if (this.state.updateOpponent == true){
-            console.log("opponent updating")
-            this.setState({isGameOverCheck: true});
-        }
+        // if (this.state.updateOpponent == true){
+        //     console.log("opponent updating")
+        //     this.setState({isGameOverCheck: true});
+        // }
         window.addEventListener('beforeunload', this.handleLeavePage.bind(this));
         rebase.syncState(`games/${this.props.gameID}`, { //TODO: change testingID to be a prop
             context: this,
@@ -217,7 +220,7 @@ class GameBoard extends Component {
                 }
             })
         }
-        this.setState({isGameOverCheck: true});
+        //this.setState({isGameOverCheck: true});
     }
 
 
@@ -514,16 +517,16 @@ class GameBoard extends Component {
                             then(err){
                             }
                         });
-                        this.clearGame()
-                        this.props.goToUrl("/home")
+                         this.clearGame()
+                        // this.props.goToUrl("/home")
                     }
                     else {
-                        rebase.update(`users/${this.props.playerID}`, {
+                        rebase.update(`users/${this.state.game.blackPlayerID}`, {
                             data: {currentGame: ''},
                             then(err){
                             }
                         });
-                        this.props.goToUrl("/home")
+                        // this.props.goToUrl("/home")
 
                     }
                 }
@@ -540,15 +543,15 @@ class GameBoard extends Component {
                             }
                         });
                         this.clearGame()
-                        this.props.goToUrl("/home")
+                        // this.props.goToUrl("/home")
                     }
                     else {
-                        rebase.update(`users/${this.props.playerID}`, {
+                        rebase.update(`users/${this.state.game.whitePlayerID}`, {
                             data: {currentGame: ''},
                             then(err){
                             }
                         });
-                        this.props.goToUrl("/home")
+                        // this.props.goToUrl("/home")
                     }
                 }
             })
